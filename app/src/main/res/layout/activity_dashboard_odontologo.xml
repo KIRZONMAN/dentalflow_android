@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Odontologo.DashboardOdontologo">
+
+    <!-- CONTENIDO -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEF2">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#2E54B2"
+                    app:titleTextColor="#FFFFFF"
+                    android:theme="@style/ThemeOverlay.Material3.ActionBar"
+                    app:title="Bienvenido"
+                    app:titleCentered="true" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                <!-- CARD: Próximas Citas -->
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                        <!-- Título + Ver agenda -->
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Próximas Citas"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btnVerAgenda"
+                                    style="?attr/materialButtonOutlinedStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="36dp"
+                                    android:text="Ver Agenda"
+                                    android:textAllCaps="false" />
+                        </LinearLayout>
+
+                        <!-- Cabecera tabla -->
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:background="#2E54B2"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="8dp"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Hora"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold" />
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Paciente"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold" />
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Estado"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Acciones"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Fila ejemplo -->
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="10dp"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="10:00:00" />
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Pedro López Rivera" />
+
+                            <com.google.android.material.chip.Chip
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="pendiente"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated" />
+
+                            <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                <ImageButton
+                                        android:layout_width="36dp"
+                                        android:layout_height="36dp"
+                                        android:background="?selectableItemBackgroundBorderless"
+                                        android:contentDescription="Ver"
+                                        android:src="@android:drawable/ic_menu_view" />
+
+                                <ImageButton
+                                        android:layout_width="36dp"
+                                        android:layout_height="36dp"
+                                        android:background="?selectableItemBackgroundBorderless"
+                                        android:contentDescription="Editar"
+                                        android:src="@android:drawable/ic_menu_edit" />
+
+                                <ImageButton
+                                        android:layout_width="36dp"
+                                        android:layout_height="36dp"
+                                        android:background="?selectableItemBackgroundBorderless"
+                                        android:contentDescription="Más"
+                                        android:src="@android:drawable/ic_menu_more" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:gravity="center"
+                                android:text="Registros adicionales en la tabla (máx. 9)"
+                                android:textColor="#4A5568"
+                                android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- CARD: Órdenes -->
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Órdenes"
+                                android:textStyle="bold" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Administra las órdenes generadas para tus pacientes" />
+
+                        <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnIrOrdenes"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:text="Ir a Órdenes"
+                                android:textAllCaps="false" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- CARD: Solicitudes -->
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="16dp"
+                        app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Solicitudes"
+                                android:textStyle="bold" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Gestiona recursos y solicitudes de tratamientos." />
+
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                            <com.google.android.material.chip.Chip
+                                    android:id="@+id/chipInsumos"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Insumos" />
+
+                            <com.google.android.material.chip.Chip
+                                    android:id="@+id/chipPedidos"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="Pedidos" />
+
+                            <com.google.android.material.chip.Chip
+                                    android:id="@+id/chipProtesis"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="Prótesis" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- NAV DRAWER -->
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_odontologo"
+            app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

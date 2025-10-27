@@ -1,0 +1,32 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "dev/*", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Gradle wrapper validation
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Build (devDebug)
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: |
+            :app:clean
+            :app:assembleDevDebug

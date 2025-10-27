@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F6FA">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#2E54B2"
+                app:titleTextColor="@android:color/white"
+                app:navigationIcon="@android:drawable/ic_media_previous"
+                app:title="Gestión de Proveedores"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <!-- Card: Formulario -->
+            <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <!-- Fila 1: NIT + Nombre -->
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilNit"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etNit"
+                                    android:hint="NIT"
+                                    android:inputType="text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilNombre"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etNombre"
+                                    android:hint="Nombre"
+                                    android:inputType="textPersonName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <!-- Fila 2: Teléfono + Correo -->
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilTelefono"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etTelefono"
+                                    android:hint="Teléfono"
+                                    android:inputType="phone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilCorreo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etCorreo"
+                                    android:hint="Correo"
+                                    android:inputType="textEmailAddress"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <!-- Botones -->
+                    <LinearLayout
+                            android:layout_marginTop="12dp"
+                            android:gravity="end"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnLimpiar"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:text="Limpiar"
+                                android:layout_marginEnd="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnGuardar"
+                                android:text="Guardar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card: Lista -->
+            <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="Lista de Proveedores"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"/>
+
+                    <!-- Cabecera de tabla -->
+                    <LinearLayout
+                            android:background="#2E54B2"
+                            android:padding="8dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView android:text="NIT"       android:textStyle="bold" android:textColor="@android:color/white" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.8"/>
+                        <TextView android:text="Nombre"    android:textStyle="bold" android:textColor="@android:color/white" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.6"/>
+                        <TextView android:text="Teléfono"  android:textStyle="bold" android:textColor="@android:color/white" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"/>
+                        <TextView android:text="Correo"    android:textStyle="bold" android:textColor="@android:color/white" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.6"/>
+                        <TextView android:text="Acciones"  android:textStyle="bold" android:textColor="@android:color/white" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvProveedores"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

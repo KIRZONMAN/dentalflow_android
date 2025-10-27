@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:background="@android:color/white"
+              android:layout_marginBottom="2dp">
+
+    <TextView
+            android:id="@+id/tvCedula"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0010200302"
+            android:textColor="@android:color/black" />
+
+    <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Juan Pérez"
+            android:textColor="@android:color/black" />
+
+    <TextView
+            android:id="@+id/tvTelefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="31435613474"
+            android:textColor="@android:color/black" />
+
+    <Button
+            android:id="@+id/btnHistoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_secundario"
+            android:text="Ver Historia"
+            android:textColor="@android:color/white" />
+
+</LinearLayout>

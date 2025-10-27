@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Laboratorista.DashboardLaboratorista">
+
+    <!-- CONTENIDO -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/azul_principal"
+                    app:titleTextColor="@android:color/white"
+                    app:title="Panel Laboratorista"
+                    app:titleCentered="true" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <!-- Encabezado (quedó como bloque visual debajo del toolbar) -->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/azul_principal"
+                        android:padding="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:id="@+id/txtTitulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Panel Laboratorista"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                    <TextView
+                            android:id="@+id/txtFecha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="24/08/2025"
+                            android:layout_marginLeft="120dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Bienvenida -->
+                <TextView
+                        android:id="@+id/txtBienvenida"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bienvenido, Laboratorista 👋"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp"/>
+
+                <!-- Tarjetas de métricas -->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="12dp">
+
+                    <!-- Tarjeta: Pedidos de hoy -->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:layout_margin="6dp"
+                            android:background="@color/white">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pedidos de hoy"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/txtPedidosHoy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/azul_principal"
+                                android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                    <!-- Tarjeta: En producción -->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:layout_margin="6dp"
+                            android:background="@color/white">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="En producción"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/txtProduccion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/azul_principal"
+                                android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                    <!-- Tarjeta: Insumos bajos -->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:layout_margin="6dp"
+                            android:background="@color/white">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Insumos bajos"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/txtInsumosBajos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/azul_principal"
+                                android:layout_gravity="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Título tabla -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pedidos para Hoy"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:padding="6dp"/>
+
+                <!-- Buscar y botón exportar -->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="4dp">
+
+                    <EditText
+                            android:id="@+id/edtBuscar"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:hint="Buscar ..."
+                            android:background="@android:drawable/edit_text"
+                            android:padding="8dp"/>
+
+                    <ImageButton
+                            android:id="@+id/btnExportar"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/exportar"
+                            android:background="@android:color/transparent"
+                            android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+                <!-- Tabla RecyclerView -->
+                <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="horizontal">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                        <TableRow
+                                android:background="@color/azul_secundario"
+                                android:padding="6dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <TextView android:text="ID" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Odontólogo" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Fecha Solicitud" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Fecha Límite" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Horario" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Estado" style="@style/TableHeaderLaboratorista"/>
+                            <TextView android:text="Acción" style="@style/TableHeaderLaboratorista"/>
+                        </TableRow>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerPedidosHoy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- NAV DRAWER -->
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_laboratorista"
+            app:menu="@menu/drawer_menu_laboratorista" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

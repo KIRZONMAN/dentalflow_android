@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:scrollbars="horizontal">
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/txtIdOrden"
+                style="@style/TablaCelda"
+                android:text="ID Orden"/>
+
+        <TextView
+                android:id="@+id/txtCitaId"
+                style="@style/TablaCelda"
+                android:text="Cita ID" />
+
+        <TextView
+                android:id="@+id/txtUsuarioId"
+                style="@style/TablaCelda"
+                android:text="Usuario ID"/>
+
+        <TextView
+                android:id="@+id/txtFechaSolicitud"
+                style="@style/TablaCelda"
+                android:text="Fecha Solicitud"/>
+
+        <TextView
+                android:id="@+id/txtFechaLimite"
+                style="@style/TablaCelda"
+                android:text="Fecha Límite"/>
+
+        <TextView
+                android:id="@+id/txtHorario"
+                style="@style/TablaCelda"
+                android:text="Horario"/>
+
+        <TextView
+                android:id="@+id/txtTipoMaterial"
+                style="@style/TablaCelda"
+                android:text="Tipo Material"/>
+
+        <TextView
+                android:id="@+id/txtOtrosDetalles"
+                style="@style/TablaCelda"
+                android:text="Otros Detalles"/>
+
+        <TextView
+                android:id="@+id/txtEstado"
+                style="@style/TablaCelda"
+                android:text="Estado"/>
+
+        <TextView
+                android:id="@+id/txtCreado"
+                style="@style/TablaCelda"
+                android:text="Creado"/>
+
+        <TextView
+                android:id="@+id/txtUltimaActualizacion"
+                style="@style/TablaCelda"
+                android:text="Última Actualización"/>
+
+        <!-- Columna Acciones -->
+        <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <ImageButton
+                    android:id="@+id/btnVerPedido"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_ver"
+                    android:background="@android:color/transparent"/>
+        </LinearLayout>
+    </LinearLayout>
+</HorizontalScrollView>

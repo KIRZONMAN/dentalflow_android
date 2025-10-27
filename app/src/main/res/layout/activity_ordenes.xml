@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="12dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- Encabezado principal -->
+        <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_menu"
+                android:text="Gestión de Órdenes y Recetas"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:gravity="center"/>
+
+        <!-- Sección Nueva Orden -->
+        <TextView
+                android:id="@+id/tvNuevaOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_principal"
+                android:text="Nueva Orden"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginTop="12dp"/>
+
+        <TextView
+                android:id="@+id/tvPacienteOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paciente"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etPacienteOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Juan Pérez"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <TextView
+                android:id="@+id/tvTipoOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Orden"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etTipoOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Examen, Rayos X..."
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <TextView
+                android:id="@+id/tvDescripcionOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etDescripcionOrden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Detalles de la orden médica"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <!-- Sección Nueva Receta -->
+        <TextView
+                android:id="@+id/tvNuevaReceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_principal"
+                android:text="Nueva Receta Médica"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginTop="12dp"/>
+
+        <TextView
+                android:id="@+id/tvPacienteReceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paciente"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etPacienteReceta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ana Martínez"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <TextView
+                android:id="@+id/tvMedicamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medicamento"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etMedicamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del medicamento"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <TextView
+                android:id="@+id/tvDosis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dosis"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etDosis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cantidad (mg)"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <TextView
+                android:id="@+id/tvFrecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frecuencia"
+                android:textColor="@color/azul_menu"
+                android:textStyle="bold"
+                android:paddingTop="6dp"/>
+
+        <EditText
+                android:id="@+id/etFrecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="2 veces al día"
+                android:background="@android:drawable/edit_text"
+                android:padding="6dp"/>
+
+        <!-- Botones -->
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="16dp">
+
+            <Button
+                    android:id="@+id/btnGuardar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/azul_menu"
+                    android:text="Guardar en Historia"
+                    android:textColor="@android:color/white"
+                    android:padding="8dp"/>
+
+            <Button
+                    android:id="@+id/btnImprimir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/azul_secundario"
+                    android:text="Imprimir Receta"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="12dp"
+                    android:padding="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

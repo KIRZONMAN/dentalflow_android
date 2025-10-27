@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/white">
+
+    <!-- Encabezado -->
+    <LinearLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/azul_menu"
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/logo1"
+                android:contentDescription="Logo"/>
+
+        <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrador de Citas"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Barra búsqueda y botón -->
+    <LinearLayout
+            android:id="@+id/layoutBuscador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/tvTodasCitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todas las Citas"
+                android:textStyle="bold"
+                android:textColor="@color/azul_principal"
+                android:layout_marginEnd="12dp" />
+
+        <EditText
+                android:id="@+id/etBuscar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Buscar..."
+                android:background="@android:drawable/edit_text"
+                android:padding="8dp" />
+
+        <Button
+                android:id="@+id/btnCrear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Crear nueva cita"
+                android:backgroundTint="@color/azul_principal"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Tabla desplazable -->
+    <HorizontalScrollView
+            android:id="@+id/scrollTabla"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="horizontal"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:id="@+id/layoutTabla"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <!-- Encabezados de tabla -->
+            <TableRow
+                    android:id="@+id/rowHeaders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/azul_principal"
+                    android:padding="8dp">
+
+                <TextView android:id="@+id/headerFecha"      android:text="Fecha"      style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerHora"       android:text="Hora"       style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerEstado"     android:text="Estado"     style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerMotivo"     android:text="Motivo"     style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerTotal"      android:text="Total"      style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerCedula"     android:text="Cédula"     style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerOdontologo" android:text="Odontólogo" style="@style/TableHeader"/>
+                <TextView android:id="@+id/headerAcciones"   android:text="Acciones"   style="@style/TableHeader"/>
+            </TableRow>
+
+            <!-- RecyclerView para las filas -->
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerCitas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+            android:id="@+id/tvTablaCompleta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tabla completa"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textStyle="italic"
+            android:textColor="@color/azul_secundario" />
+</LinearLayout>

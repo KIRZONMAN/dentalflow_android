@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/white">
+
+    <!-- Encabezado -->
+    <TextView
+            android:id="@+id/tvTituloUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/azul_menu"
+            android:padding="16dp"
+            android:text="Buscar Usuarios"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    <!-- Barra búsqueda y botones -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <EditText
+                android:id="@+id/inputBuscarUsuario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Buscar ..."
+                android:background="@android:drawable/edit_text"
+                android:padding="8dp" />
+
+        <Button
+                android:id="@+id/btnBuscarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:backgroundTint="@color/azul_principal"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="8dp" />
+
+        <Button
+                android:id="@+id/btnAgregarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar Usuarios"
+                android:backgroundTint="@color/azul_principal"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Tabla desplazable -->
+    <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="horizontal"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <!-- Encabezados -->
+            <TableLayout
+                    android:id="@+id/tableHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <!-- ⬆️  IMPORTANTE: sin stretchColumns -->
+                <TableRow
+                        android:background="@color/azul_principal"
+                        android:padding="8dp">
+
+                    <TextView android:id="@+id/headerId"      style="@style/TableHeader" android:text="ID"/>
+                    <TextView android:id="@+id/headerNombre"  style="@style/TableHeader" android:text="Nombre"/>
+                    <TextView android:id="@+id/headerCorreo"  style="@style/TableHeader" android:text="Correo"/>
+                    <TextView android:id="@+id/headerEstado"  style="@style/TableHeader" android:text="Estado"/>
+                    <TextView android:id="@+id/headerRol"     style="@style/TableHeader" android:text="Rol"/>
+                    <TextView android:id="@+id/headerAcciones" style="@style/TableHeader" android:text="Acciones"/>
+                </TableRow>
+            </TableLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerUsuarios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+            android:id="@+id/tvTablaUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tabla completa"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textStyle="italic"
+            android:textColor="@color/azul_secundario" />
+</LinearLayout>

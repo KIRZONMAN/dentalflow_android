@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:background="@android:color/white">
+
+    <!-- ID -->
+    <TextView
+            android:id="@+id/tvId"
+            style="@style/TableCell"
+            android:textColor="@color/black" />
+
+    <!-- Nombre -->
+    <TextView
+            android:id="@+id/tvNombre"
+            style="@style/TableCell"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+    <!-- Correo -->
+    <TextView
+            android:id="@+id/tvCorreo"
+            style="@style/TableCell"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+    <!-- Estado -->
+    <TextView
+            android:id="@+id/tvEstado"
+            style="@style/TableCell"
+            android:textColor="@color/black" />
+
+    <!-- Rol -->
+    <TextView
+            android:id="@+id/tvRol"
+            style="@style/TableCell"
+            android:textColor="@color/black" />
+
+    <!-- Acciones (EN UNA SOLA CELDA) -->
+    <LinearLayout
+            android:id="@+id/cellAcciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <ImageButton
+                android:id="@+id/btnEditar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_edit"
+                android:contentDescription="@string/app_name" />
+
+        <ImageButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_delete"
+                android:contentDescription="@string/app_name"
+                android:layout_marginStart="6dp" />
+    </LinearLayout>
+</TableRow>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Asistente.DashboardAsistente">
+
+    <!-- CONTENIDO -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEF2">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#2E54B2"
+                    app:titleTextColor="#FFFFFF"
+                    android:theme="@style/ThemeOverlay.Material3.ActionBar"
+                    app:title="Panel Asistente"
+                    app:titleCentered="true" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                <!-- CARD: Próximas Citas -->
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardUseCompatPadding="true">
+
+                    <!-- Título + Ver agenda -->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="99dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Bienvenido, asistente David 👋"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        <!-- Cuadro de hora y navegación -->
+                        <LinearLayout
+                                android:id="@+id/layoutHora"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@color/gray"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="12dp">
+
+                            <Button
+                                    android:id="@+id/btnAnterior"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/azul_secundario"
+                                    android:text="&lt;"
+                                    android:textColor="@color/blanco" />
+
+                            <TextView
+                                    android:id="@+id/tvHora"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="18:00"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+
+                            <Button
+                                    android:id="@+id/btnSiguiente"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/azul_secundario"
+                                    android:text="&gt;"
+                                    android:textColor="@color/blanco" />
+
+                        </LinearLayout>
+
+                        <!-- Fila ejemplo -->
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- CARD: Órdenes -->
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                        <!-- Detalles de la Cita -->
+                        <TextView
+                                android:id="@+id/tvTituloDetalles"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Detalles de la Cita"
+                                android:textSize="16sp"
+                                android:textColor="@color/azul_principal"
+                                android:layout_marginBottom="8dp" />
+
+                        <TextView
+                                android:id="@+id/tvPaciente"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Paciente: Pedro Lopez Rivera"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="4dp" />
+
+                        <TextView
+                                android:id="@+id/tvOdontologo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Odontólogo: Jesús David Velasco Quilindo"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="4dp" />
+
+                        <TextView
+                                android:id="@+id/tvMotivo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Motivo: Revisión odontológica inicial"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="4dp" />
+
+                        <TextView
+                                android:id="@+id/tvEstado"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Estado: Pendiente"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="4dp" />
+
+                        <TextView
+                                android:id="@+id/tvNotas"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Notas: Sin notas"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="16dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- NAV DRAWER -->
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_asistente"
+            app:menu="@menu/drawer_menu_asistente" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

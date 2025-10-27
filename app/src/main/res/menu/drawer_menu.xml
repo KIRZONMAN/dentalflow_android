@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_inicio"
+                android:title="Inicio"
+                android:icon="@android:drawable/ic_menu_view"/>
+        <item android:id="@+id/nav_agenda"
+                android:title="Agenda"
+                android:icon="@android:drawable/ic_menu_my_calendar"/>
+        <item android:id="@+id/nav_ordenes"
+                android:title="Órdenes"
+                android:icon="@android:drawable/ic_menu_agenda"/>
+        <item android:id="@+id/nav_protesis"
+                android:title="Solicitar Prótesis"
+                android:icon="@android:drawable/ic_menu_edit"/>
+        <item android:id = "@+id/nav_configuracion"
+              android:title="Configuración"
+              android:icon="@android:drawable/ic_menu_edit" />
+        <item android:id="@+id/nav_insumos"
+                android:title="Insumos"
+                android:icon="@android:drawable/ic_menu_manage"/>
+    </group>
+
+    <item android:id="@+id/nav_logout"
+            android:title="Cerrar Sesión"
+            android:icon="@android:drawable/ic_lock_idle_lock"/>
+</menu>

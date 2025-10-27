@@ -1,0 +1,7 @@
+# Copia esto a local.properties (NO subir al repo):
+# sdk.dir=/ruta/a/tu/Android/Sdk
+# (normalmente Android Studio lo escribe solo)
+
+# También puedes definir estas propiedades en gradle.properties a nivel usuario:
+# DEV_BASE_URL=http://10.0.2.2:3000/api
+# DEV_API_KEY=demo-secret-change-me

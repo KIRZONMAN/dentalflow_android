@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blanco"
+            android:padding="12dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <!-- Encabezado -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_menu"
+                android:padding="16dp"
+                android:gravity="center">
+
+            <TextView
+                    android:id="@+id/tvTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gestión de Insumos"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+        </LinearLayout>
+
+        <!-- Insumos Disponibles -->
+        <TextView
+                android:id="@+id/tvInsumosDisponibles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Insumos Disponibles"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"/>
+
+        <!-- RecyclerView Insumos -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvInsumosDisponibles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+        <!-- Solicitar Nuevo Insumo -->
+        <TextView
+                android:id="@+id/tvSolicitar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Solicitar Nuevo Insumo"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/black"/>
+
+        <!-- Formulario de solicitud -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo:"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"/>
+
+        <Spinner
+                android:id="@+id/spTipoInsumo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
+                android:padding="10dp"
+                android:layout_marginTop="4dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad:"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"/>
+
+        <EditText
+                android:id="@+id/etCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ej: 10"
+                android:inputType="number"
+                android:background="@android:drawable/edit_text"
+                android:padding="10dp"
+                android:layout_marginTop="4dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proveedor:"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"/>
+
+        <Spinner
+                android:id="@+id/spProveedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
+                android:padding="10dp"
+                android:layout_marginTop="4dp"/>
+
+        <!-- Botones -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+            <Button
+                    android:id="@+id/btnSolicitar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4CAF50"
+                    android:text="Solicitar"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="12dp"/>
+
+            <Button
+                    android:id="@+id/btnLimpiar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#F44336"
+                    android:text="Limpiar"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- Estados de Solicitudes -->
+        <TextView
+                android:id="@+id/tvEstados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estados de Solicitudes"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/black"/>
+
+        <!-- RecyclerView Estados -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEstadosSolicitudes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

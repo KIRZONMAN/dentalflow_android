@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+            android:allowBackup="true"
+            android:usesCleartextTraffic="true"
+            android:networkSecurityConfig="@xml/network_security_config"
+            android:dataExtractionRules="@xml/data_extraction_rules"
+            android:fullBackupContent="@xml/backup_rules"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.DentalFlow">
+        <activity
+                android:name=".Administrador.EditUsuarioActivity"
+                android:exported="false" />
+        <activity
+                android:name=".ActivityConfiguracion"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.ActivityVerHistoria"
+                android:exported="false" />
+        <activity
+                android:name=".Administrador.ProcedimientosActivity"
+                android:exported="false" />
+        <activity
+                android:name=".Administrador.GestionProveedoresActivity"
+                android:exported="false" />
+        <activity
+                android:name=".Administrador.AgregarUsuario"
+                android:exported="false" />
+        <activity
+                android:name=".Administrador.GestionUsuarios"
+                android:exported="false" />
+        <activity
+                android:name=".Administrador.DashboardAdministrador"
+                android:exported="false" />
+        <activity
+                android:name=".Laboratorista.OrdenesLaboratorio"
+                android:exported="false" />
+        <activity
+                android:name=".Laboratorista.PedidosLaboratorio"
+                android:exported="false" />
+        <activity
+                android:name=".Laboratorista.DashboardLaboratorista"
+                android:exported="false" />
+        <activity
+                android:name=".Asistente.RegistroPacientes"
+                android:exported="false" />
+        <activity
+                android:name=".Asistente.ActivityCitas"
+                android:exported="false" />
+        <activity
+                android:name=".Asistente.DashboardAsistente"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.ActivityAgenda"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.ActivityInsumos"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.SolicitudProtesis"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.ActivityOrdenes"
+                android:exported="false" />
+        <activity
+                android:name=".Odontologo.DashboardOdontologo"
+                android:exported="false" />
+        <activity
+                android:name=".MainActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

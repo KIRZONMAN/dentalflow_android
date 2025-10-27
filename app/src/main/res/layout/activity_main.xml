@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2E54B2"
+        android:padding="24dp">
+
+    <!-- Logo -->
+    <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo1"
+            android:contentDescription="Logo Dental Flow"
+            android:layout_marginBottom="16dp" />
+
+    <!-- Título -->
+    <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dental Flow"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp" />
+
+    <!-- Subtítulo -->
+    <TextView
+            android:id="@+id/tvSubtitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accede a tu cuenta"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+    <!-- Usuario -->
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:startIconTint="#FFFFFFFF"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#4075BE"
+            app:boxCornerRadiusTopStart="25dp"
+            app:boxCornerRadiusTopEnd="25dp"
+            app:boxCornerRadiusBottomStart="25dp"
+            app:boxCornerRadiusBottomEnd="25dp"
+            app:boxStrokeColor="@android:color/transparent"
+            app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Usuario"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#F4F4F4"
+                android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Contraseña -->
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:startIconTint="#FFFFFFFF"
+            app:endIconMode="password_toggle"
+            app:endIconTint="#FFFFFFFF"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#4075BE"
+            app:boxCornerRadiusTopStart="25dp"
+            app:boxCornerRadiusTopEnd="25dp"
+            app:boxCornerRadiusBottomStart="25dp"
+            app:boxCornerRadiusBottomEnd="25dp"
+            app:boxStrokeColor="@android:color/transparent"
+            app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Contraseña"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#F4F4F4"
+                android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón Ingresar -->
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnIngresar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ingresar"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="16dp"
+            android:backgroundTint="#4075BE"
+            android:layout_marginBottom="16dp" />
+
+    <!-- Olvidaste contraseña -->
+    <TextView
+            android:id="@+id/tvOlvidaste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF" />
+
+</LinearLayout>

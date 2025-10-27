@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Estados disponibles -->
+    <string-array name="estados_array">
+        <item>Activo</item>
+        <item>Inactivo</item>
+        <item>Suspendido</item>
+    </string-array>
+
+    <!-- Roles disponibles -->
+    <string-array name="roles_array">
+        <item>Administrador</item>
+        <item>Odontologo</item>
+        <item>Asistente</item>
+        <item>Laboratorista</item>
+    </string-array>
+
+    <!-- Tipos de sangre -->
+    <string-array name="tipo_sangre_array">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+</resources>

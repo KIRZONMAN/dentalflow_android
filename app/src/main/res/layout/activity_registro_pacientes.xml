@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blanco">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+        <!-- Encabezado -->
+        <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registro de Paciente"
+                android:textColor="@color/blanco"
+                android:background="@color/azul_principal"
+                android:padding="16dp"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/azul_principal"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_gravity="center"
+                android:elevation="4dp" />
+
+        <!-- Campo Cédula -->
+        <EditText
+                android:id="@+id/etCedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="🆔 Cédula"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Nombres -->
+        <EditText
+                android:id="@+id/etNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombres"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Apellidos -->
+        <EditText
+                android:id="@+id/etApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Edad -->
+        <EditText
+                android:id="@+id/etEdad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edad"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:inputType="number"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Género -->
+        <EditText
+                android:id="@+id/etGenero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Género"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Teléfono -->
+        <EditText
+                android:id="@+id/etTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="📞 Teléfono"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:inputType="phone"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Correo Electrónico -->
+        <EditText
+                android:id="@+id/etCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo Electrónico"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Campo Tipo de Sangre -->
+        <Spinner
+                android:id="@+id/spTipoSangre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginBottom="16dp" />
+
+        <!-- Botón Registrar -->
+        <Button
+                android:id="@+id/btnRegistrarPaciente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar"
+                android:textColor="@color/blanco"
+                android:backgroundTint="@color/azul_menu"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>

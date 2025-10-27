@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#A9DCD9D9</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="azul_menu">#1B33A6</color>
+    <color name="azul_principal">#2E54B2</color>
+    <color name="azul_secundario">#4075BE</color>
+    <color name="blanco">#F4F4F4</color>
+</resources>

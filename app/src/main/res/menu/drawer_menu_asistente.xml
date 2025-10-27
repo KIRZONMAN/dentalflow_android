@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_inicio"
+                android:title="Panel Principal"
+                android:icon="@android:drawable/ic_menu_view"/>
+
+        <item
+                android:id="@+id/nav_citas"
+                android:title="Ver Citas"
+                android:icon="@android:drawable/ic_menu_my_calendar"/>
+
+        <item
+                android:id="@+id/nav_historial"
+                android:title="Historial"
+                android:icon="@android:drawable/ic_menu_recent_history"/>
+
+        <item
+                android:id="@+id/nav_registrar"
+                android:title="Registrar Paciente"
+                android:icon="@android:drawable/ic_input_add"/>
+
+        <item
+                android:id="@+id/nav_configuracion"
+                android:title="Configuración"
+                android:icon="@android:drawable/ic_menu_preferences"/>
+    </group>
+
+    <item
+            android:id="@+id/nav_logout"
+            android:title="Cerrar sesión"
+            android:icon="@android:drawable/ic_lock_power_off"/>
+</menu>

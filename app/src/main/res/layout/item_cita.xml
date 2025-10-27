@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+          android:padding="8dp">
+
+    <TextView android:id="@+id/txtFecha" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtHora" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtEstado" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtMotivo" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtTotal" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtCedula" style="@style/TableCell"/>
+    <TextView android:id="@+id/txtOdontologo" style="@style/TableCell"/>
+
+    <!-- Botones de acciones -->
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <Button
+                android:id="@+id/btnAceptar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✔"
+                android:backgroundTint="#8BC34A"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="4dp"/>
+
+        <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✖"
+                android:backgroundTint="#FF5722"
+                android:textColor="@android:color/white"/>
+    </LinearLayout>
+</TableRow>

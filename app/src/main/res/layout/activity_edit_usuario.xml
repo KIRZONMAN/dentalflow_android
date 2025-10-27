@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/white">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_principal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+            <Button
+                    android:id="@+id/btnVolver"
+                    android:layout_width="58dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/azul_secundario"
+                    android:text="⬅️"
+                    android:textSize="20dp" />
+
+            <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Editar usuario"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <EditText
+                android:id="@+id/etNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombres"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/azul_secundario"/>
+
+        <EditText
+                android:id="@+id/etApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/azul_secundario"/>
+
+        <EditText
+                android:id="@+id/etCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:inputType="textEmailAddress"
+                android:enabled="false"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/azul_secundario"/>
+
+        <!-- Oculta contraseña en edición -->
+        <EditText
+                android:id="@+id/etContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:hint="(no editable)"/>
+
+        <EditText
+                android:id="@+id/etDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/azul_secundario"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="12dp">
+
+            <EditText
+                    android:id="@+id/etTelefono"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Teléfono"
+                    android:inputType="phone"
+                    android:backgroundTint="@color/azul_secundario"
+                    android:layout_marginEnd="6dp"/>
+
+            <Spinner
+                    android:id="@+id/spEstado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/estados_array"
+                    android:layout_marginStart="6dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="12dp">
+
+            <Spinner
+                    android:id="@+id/spRol"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/roles_array"
+                    android:layout_marginEnd="6dp"/>
+
+            <EditText
+                    android:id="@+id/etEspecialidad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Especialidad (opcional)"
+                    android:backgroundTint="@color/azul_secundario"
+                    android:layout_marginStart="6dp"/>
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar cambios"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/azul_secundario"
+                android:layout_marginTop="20dp"
+                android:padding="12dp"
+                android:fontFamily="sans-serif-medium"/>
+    </LinearLayout>
+</ScrollView>

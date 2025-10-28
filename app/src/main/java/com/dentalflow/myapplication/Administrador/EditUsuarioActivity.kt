@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.dentalflow.myapplication.data.remote.Api
-import com.dentalflow.myapplication.data.remote.UsuarioPatchReq
+import com.dentalflow.myapplication.data.remote.model.UsuarioPatchReq
 import com.dentalflow.myapplication.databinding.ActivityEditUsuarioBinding
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -62,6 +62,8 @@ class EditUsuarioActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
+                val espList = esp.takeIf { it.isNotEmpty() }?.let { listOf(it) }
+
                 val patch = UsuarioPatchReq(
                     userId = userId.ifBlank { null },
                     nombres = nombres,
@@ -71,7 +73,7 @@ class EditUsuarioActivity : AppCompatActivity() {
                     rol = rol,
                     direccion = dir.ifEmpty { null },
                     telefono = tel.ifEmpty { null },
-                    especialidad = if (esp.isNotEmpty()) esp else null
+                    especialidad = espList          // << aquí
                 )
 
                 val resp = Api.patchUsuario(id, patch)

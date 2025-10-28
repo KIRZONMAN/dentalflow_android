@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.dentalflow.myapplication.data.remote.Api
-import com.dentalflow.myapplication.data.remote.UsuarioCreateReq
+import com.dentalflow.myapplication.data.remote.model.UsuarioCreateReq
 import com.dentalflow.myapplication.databinding.ActivityAgregarUsuarioBinding
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +45,10 @@ class AgregarUsuario : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
+                val especialidadList = especialidad
+                    .takeIf { it.isNotEmpty() }
+                    ?.let { listOf(it) }
+
                 val req = UsuarioCreateReq(
                     nombres = nombres,
                     apellidos = apellidos,
@@ -53,8 +57,8 @@ class AgregarUsuario : AppCompatActivity() {
                     rol = rol,
                     direccion = direccion.ifEmpty { null },
                     telefono = telefono.ifEmpty { null },
-                    especialidad = if (especialidad.isNotEmpty()) especialidad else null
-
+                    especialidad = especialidadList,   // << aquí
+                    userId = null
                 )
                 // dentro de registrarUsuario(), antes de Api.createUsuario(req)
                 android.util.Log.d("AgregarUsuario", "payload=" + com.google.gson.Gson().toJson(req))

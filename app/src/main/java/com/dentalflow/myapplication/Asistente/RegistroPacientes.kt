@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.dentalflow.myapplication.R
 import com.dentalflow.myapplication.data.remote.Api
-import com.dentalflow.myapplication.data.remote.PacienteDto
+import com.dentalflow.myapplication.data.remote.model.PacienteDto
 import com.dentalflow.myapplication.databinding.ActivityRegistroPacientesBinding
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

@@ -2,11 +2,16 @@ package com.dentalflow.myapplication.Asistente
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.dentalflow.myapplication.R
 import com.dentalflow.myapplication.databinding.ActivityCrearCitaBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -115,18 +120,33 @@ class ActivityCrearCita : AppCompatActivity() {
             .url(API_URL)
             .post(body)
             .build()
-
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = client.newCall(request).execute()
                 val respuesta = response.body?.string()
-
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@ActivityCrearCita, "✅ Cita registrada correctamente", Toast.LENGTH_LONG).show()
-                        limpiarCampos()
+                        SweetAlertDialog(this@ActivityCrearCita, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("¡Éxito!")
+                            .setContentText("Cita registrada correctamente ✅")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener { dialog ->
+                                dialog.dismissWithAnimation()
+                                limpiarCampos()
+                                val intent = Intent(this@ActivityCrearCita, ActivityCitas::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            .show()
                     } else {
-                        Toast.makeText(this@ActivityCrearCita, "❌ Error del servidor: $respuesta", Toast.LENGTH_LONG).show()
+                        SweetAlertDialog(this@ActivityCrearCita, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error")
+                            .setContentText("Error del servidor: $respuesta ❌")
+                            .setConfirmText("Reintentar")
+                            .setConfirmClickListener { dialog ->
+                                dialog.dismissWithAnimation()
+                            }
+                            .show()
                     }
                 }
 

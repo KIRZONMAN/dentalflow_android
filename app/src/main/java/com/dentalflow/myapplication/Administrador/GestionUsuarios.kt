@@ -130,8 +130,8 @@ class GestionUsuarios : AppCompatActivity() {
                     Toast.makeText(this@GestionUsuarios, "Usuario eliminado", Toast.LENGTH_SHORT).show()
                     com.dentalflow.myapplication.data.work.WorkEnqueue.event(
                         context = this@GestionUsuarios,
-                        action  = "delete_user",
-                        title   = "Usuario eliminado",
+                        action = "delete_user",
+                        title = "Usuario eliminado",
                         message = u.nombre
                     )
                     fetchUsuarios(lastQuery)
@@ -197,7 +197,7 @@ class GestionUsuarios : AppCompatActivity() {
         val tRol = binding.headerRol
         val tAcc = binding.headerAcciones
 
-        val colId = listOf(tId.text.toString()) + items.map { it.id.takeLast(6) }
+        val colId = listOf(tId.text.toString()) + items.map { it.id?.takeLast(6) }
         val colNombre = listOf(tNombre.text.toString()) + items.map { it.nombre }
         val colCorreo = listOf(tCorreo.text.toString()) + items.map { it.correo }
         val colEstado = listOf(tEstado.text.toString()) + items.map { it.estado ?: "" }
@@ -205,9 +205,9 @@ class GestionUsuarios : AppCompatActivity() {
         val colAcc = listOf(tAcc.text.toString())
 
         return intArrayOf(
-            measureMaxWidth(colId, tId),
-            measureMaxWidth(colNombre, tNombre),
-            measureMaxWidth(colCorreo, tCorreo),
+            measureMaxWidth(colId as List<String>, tId),
+            measureMaxWidth(colNombre as List<String>, tNombre),
+            measureMaxWidth(colCorreo as List<String>, tCorreo),
             measureMaxWidth(colEstado, tEstado),
             measureMaxWidth(colRol, tRol),
             measureMaxWidth(colAcc, tAcc)

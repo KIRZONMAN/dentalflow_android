@@ -1,17 +1,21 @@
 package com.dentalflow.myapplication.Asistente
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.dentalflow.myapplication.R
+import com.dentalflow.myapplication.databinding.ActivityCitasBinding
 
 class ActivityCitas : AppCompatActivity() {
+    private lateinit var binding: ActivityCitasBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_citas)
+        binding = ActivityCitasBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnCrear.setOnClickListener {
+            var irAgendarCita = Intent(this, ActivityCrearCita::class.java)
+            startActivity(irAgendarCita)
+        }
 
     }
 }

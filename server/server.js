@@ -4,16 +4,16 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const apiKeyAuth     = require("./middlewares/auth");
+const apiKeyAuth = require("./middlewares/auth");
 
 // Rutas
-const usuarios       = require("./routes/usuarios");
-const pacientes      = require("./routes/pacientes");
-const citas          = require("./routes/citas");
-const historias      = require("./routes/historias");
+const usuarios = require("./routes/usuarios");
+const pacientes = require("./routes/pacientes");
+const citas = require("./routes/citas");
+const historias = require("./routes/historias");
 const procedimientos = require("./routes/procedimientos");
-const roles          = require("./routes/roles");
-const ordenesLab     = require("./routes/ordenes_laboratorio");
+const roles = require("./routes/roles");
+const ordenesLab = require("./routes/ordenes_laboratorio");
 
 const app = express();
 

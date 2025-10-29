@@ -70,8 +70,8 @@ class AgregarUsuario : AppCompatActivity() {
                     // NOTI: usuario creado
                     com.dentalflow.myapplication.data.work.WorkEnqueue.event(
                         context = this@AgregarUsuario,
-                        action  = "create_user",
-                        title   = "Usuario creado",
+                        action = "create_user",
+                        title = "Usuario creado",
                         message = "${nombres} ${apellidos} (${rol})"
                     )
                     setResult(RESULT_OK)

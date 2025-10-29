@@ -11,7 +11,7 @@ object WorkEnqueue {
         context: Context,
         action: String,
         title: String,
-        message: String
+        message: String?
     ) {
         val data: Data = workDataOf(
             EventWorker.KEY_ACTION to action,

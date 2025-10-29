@@ -31,7 +31,7 @@ class UsuariosAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val user = getItem(position)
 
-        holder.b.tvId.text = user.id.takeLast(6)
+        holder.b.tvId.text = user.id?.takeLast(6)
         holder.b.tvNombre.text = user.nombre
         holder.b.tvCorreo.text = user.correo
         holder.b.tvEstado.text = user.estado ?: ""

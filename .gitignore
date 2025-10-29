@@ -29,3 +29,5 @@ captures/
 
 # Jetifier / misc
 .cache/
+
+server/node_modules/

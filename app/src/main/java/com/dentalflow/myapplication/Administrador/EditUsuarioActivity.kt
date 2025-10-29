@@ -83,8 +83,8 @@ class EditUsuarioActivity : AppCompatActivity() {
                     Toast.makeText(this@EditUsuarioActivity, "Guardado ✔", Toast.LENGTH_LONG).show()
                     com.dentalflow.myapplication.data.work.WorkEnqueue.event(
                         context = this@EditUsuarioActivity,
-                        action  = "edit_user",
-                        title   = "Usuario actualizado",
+                        action = "edit_user",
+                        title = "Usuario actualizado",
                         message = "${b.etNombres.text} ${b.etApellidos.text} → ${b.spRol.selectedItem}"
                     )
                     setResult(RESULT_OK)

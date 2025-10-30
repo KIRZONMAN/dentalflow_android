@@ -85,29 +85,73 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-            <!-- Encabezados de tabla -->
+            <!-- Encabezados de tabla (usa anchos fijos) -->
             <TableRow
-                    android:id="@+id/rowHeaders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/azul_principal"
-                    android:padding="8dp">
+                android:id="@+id/rowHeaders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/azul_principal"
+                android:padding="8dp">
 
-                <TextView android:id="@+id/headerFecha"      android:text="Fecha"      style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerHora"       android:text="Hora"       style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerEstado"     android:text="Estado"     style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerMotivo"     android:text="Motivo"     style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerTotal"      android:text="Total"      style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerCedula"     android:text="Cédula"     style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerOdontologo" android:text="Odontólogo" style="@style/TableHeader"/>
-                <TextView android:id="@+id/headerAcciones"   android:text="Acciones"   style="@style/TableHeader"/>
+                <TextView
+                    android:id="@+id/headerFecha"
+                    android:text="Fecha"
+                    style="@style/TableHeader"
+                    android:layout_width="100dp" />
+
+                <TextView
+                    android:id="@+id/headerHora"
+                    android:text="Hora"
+                    style="@style/TableHeader"
+                    android:layout_width="80dp" />
+
+                <TextView
+                    android:id="@+id/headerEstado"
+                    android:text="Estado"
+                    style="@style/TableHeader"
+                    android:layout_width="100dp" />
+
+                <TextView
+                    android:id="@+id/headerMotivo"
+                    android:text="Motivo"
+                    style="@style/TableHeader"
+                    android:layout_width="150dp" />
+
+                <TextView
+                    android:id="@+id/headerTotal"
+                    android:text="Total"
+                    style="@style/TableHeader"
+                    android:layout_width="80dp" />
+
+                <TextView
+                    android:id="@+id/headerCedula"
+                    android:text="Cédula"
+                    style="@style/TableHeader"
+                    android:layout_width="120dp" />
+                <TextView
+                    android:id="@+id/headerPaciente"
+                    android:text="Paciente"
+                    style="@style/TableHeader"
+                    android:layout_width="150dp" />
+                <TextView
+                    android:id="@+id/headerOdontologo"
+                    android:text="Odontólogo"
+                    style="@style/TableHeader"
+                    android:layout_width="120dp" />
+
+                <TextView
+                    android:id="@+id/headerAcciones"
+                    android:text="Acciones"
+                    style="@style/TableHeader"
+                    android:layout_width="88dp" />
             </TableRow>
 
             <!-- RecyclerView para las filas -->
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerCitas"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                android:overScrollMode="never"/>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -115,7 +159,7 @@
             android:id="@+id/tvTablaCompleta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tabla completa"
+            android:text="Agregar páginas"
             android:gravity="center"
             android:padding="8dp"
             android:textStyle="italic"

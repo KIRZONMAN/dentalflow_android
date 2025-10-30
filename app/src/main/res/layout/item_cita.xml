@@ -1,37 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-          android:padding="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <TextView android:id="@+id/txtFecha" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtHora" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtEstado" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtMotivo" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtTotal" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtCedula" style="@style/TableCell"/>
-    <TextView android:id="@+id/txtOdontologo" style="@style/TableCell"/>
+    <TextView
+        android:id="@+id/txtFecha"
+        style="@style/TableCell"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:ellipsize="none"
+        android:breakStrategy="simple"
+        android:scrollHorizontally="false" />
 
-    <!-- Botones de acciones -->
+    <TextView
+        android:id="@+id/txtHora"
+        style="@style/TableCell"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:breakStrategy="simple" />
+
+    <TextView
+        android:id="@+id/txtEstado"
+        style="@style/TableCell"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:breakStrategy="simple" />
+
+    <TextView
+        android:id="@+id/txtMotivo"
+        style="@style/TableCell"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:breakStrategy="simple"
+        android:scrollHorizontally="false" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        style="@style/TableCell"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false" />
+
+    <TextView
+        android:id="@+id/txtCedula"
+        style="@style/TableCell"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false" />
+    <TextView
+        android:id="@+id/txtPacienteNombre"
+        style="@style/TableCell"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/txtOdontologo"
+        style="@style/TableCell"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:singleLine="false"
+        android:ellipsize="end"
+        android:maxLines="3" />
+
     <LinearLayout
-            android:layout_width="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnAceptar"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:text="✔"
+            android:backgroundTint="#8BC34A"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="4dp" />
 
         <Button
-                android:id="@+id/btnAceptar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="✔"
-                android:backgroundTint="#8BC34A"
-                android:textColor="@android:color/white"
-                android:layout_marginEnd="4dp"/>
-
-        <Button
-                android:id="@+id/btnCancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="✖"
-                android:backgroundTint="#FF5722"
-                android:textColor="@android:color/white"/>
+            android:id="@+id/btnCancelar"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="✖"
+            android:backgroundTint="#FF5722"
+            android:textColor="@android:color/white" />
     </LinearLayout>
-</TableRow>
+</LinearLayout>

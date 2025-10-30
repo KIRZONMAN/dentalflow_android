@@ -11,7 +11,10 @@ import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import com.dentalflow.myapplication.data.remote.model.ApiResponse
+import com.dentalflow.myapplication.data.remote.model.PacienteDto
+import com.dentalflow.myapplication.data.remote.model.UsuarioCreateReq
 import com.dentalflow.myapplication.data.remote.model.UsuarioDto
+import com.dentalflow.myapplication.data.remote.model.UsuarioPatchReq
 
 
 object Api {
@@ -63,7 +66,7 @@ object Api {
         return call(req, tt)
     }
 
-    suspend fun createUsuario(body: com.dentalflow.myapplication.data.remote.UsuarioCreateReq): ApiResponse<Any> {
+    suspend fun createUsuario(body: UsuarioCreateReq): ApiResponse<Any> {
         val url = "$BASE/usuarios"
         val json = gson.toJson(body).toRequestBody(JSON)
         val req = reqBuilder(url).post(json).build()
@@ -71,7 +74,7 @@ object Api {
         return call(req, tt)
     }
 
-    suspend fun patchUsuario(id: String, body: com.dentalflow.myapplication.data.remote.UsuarioPatchReq): ApiResponse<Any> {
+    suspend fun patchUsuario(id: String, body: UsuarioPatchReq): ApiResponse<Any> {
         val url = "$BASE/usuarios/$id"
         val json = gson.toJson(body).toRequestBody(JSON)
         val req = reqBuilder(url).patch(json).build()
@@ -88,7 +91,7 @@ object Api {
 
     // -------- Pacientes --------
 
-    suspend fun upsertPaciente(body: com.dentalflow.myapplication.data.remote.PacienteDto): ApiResponse<Any> {
+    suspend fun upsertPaciente(body: PacienteDto): ApiResponse<Any> {
         val url = "$BASE/pacientes"
         val json = gson.toJson(body).toRequestBody(JSON)
         val req = reqBuilder(url).post(json).build()

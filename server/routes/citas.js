@@ -4,7 +4,7 @@ const { connect, oidMaybe } = require("../lib/mongo");
 
 const router = express.Router();
 
-// ============================
+// ============================ 
 // Helpers
 // ============================
 const ESTADOS = ["Pendiente", "Confirmada", "Cancelada", "Completada"];
@@ -49,11 +49,16 @@ const CitaCreate = z.object({
   estado: z.enum(ESTADOS).optional(),
   motivo: z.string().optional(),
   procedimientos: z.array(Proc).optional(),
-  total: z.preprocess(asNumber, z.number().nonnegative()).optional(),
+  total: z.preprocess(asNumber, z.number().nonnegative()).optional().default(0),
 });
 
 const CitaPatch = z.object({
-  fecha: z.preprocess(parseDateStrict, z.date()).optional(),
+  fecha: z.preprocess((v) => {
+    if (!v) return undefined;
+    const d = new Date(v);
+    if (Number.isNaN(d.getTime())) throw new Error("fecha inválida");
+    return d;
+  }, z.date()).optional(),
   paciente_id: z.string().min(1).optional(),
   usuario_id: z.string().regex(/^[0-9a-fA-F]{24}$/).optional(),
   estado: z.enum(ESTADOS).optional(),
@@ -75,7 +80,7 @@ router.post("/", async (req, res) => {
 
     const parsed = CitaCreate.parse(req.body);
 
-    const usuarioOid = oidMaybe(parsed.usuario_id);
+    const usuarioOid = parsed.usuario_id.trim();
     if (!usuarioOid) throw new Error("usuario_id inválido");
 
     const procs = normalizeProcs(parsed.procedimientos || []);
@@ -118,7 +123,8 @@ router.get("/", async (req, res) => {
     if (usuario_id) {
       const oid = oidMaybe(usuario_id);
       if (!oid) return res.status(400).json({ ok: false, error: "usuario_id inválido" });
-      q.usuario_id = oid;
+      q.usuario_id = String(usuario_id);
+
     }
     if (estado) {
       if (!ESTADOS.includes(String(estado))) {

@@ -19,15 +19,26 @@ class ActivityCitas : AppCompatActivity() {
     private val API_CITAS = "http://10.0.2.2:3000/api/citas"
     private val API_USUARIOS = "http://10.0.2.2:3000/api/usuarios"
     private lateinit var adapter: CitaAdapter
+    private val listaCitas = mutableListOf<Cita>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCitasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = CitaAdapter(emptyList())
-        binding.recyclerCitas.layoutManager = LinearLayoutManager(this)
+        adapter = CitaAdapter(listaCitas) { citaSeleccionada ->
+            val intent = Intent(this, EditCitas::class.java)
+            intent.putExtra("CITA_ID", citaSeleccionada._id)
+            intent.putExtra("FECHA", citaSeleccionada.fecha)
+            intent.putExtra("MOTIVO", citaSeleccionada.motivo)
+            intent.putExtra("ESTADO", citaSeleccionada.estado)
+            intent.putExtra("PACIENTE_ID", citaSeleccionada.paciente_id)
+            intent.putExtra("USUARIO_ID", citaSeleccionada.usuario_id)
+            startActivity(intent)
+        }
         binding.recyclerCitas.adapter = adapter
+        binding.recyclerCitas.layoutManager = LinearLayoutManager(this)
+
 
         binding.btnCrear.setOnClickListener {
             val irAgendarCita = Intent(this, ActivityCrearCita::class.java)

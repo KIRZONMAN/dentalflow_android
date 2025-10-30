@@ -83,23 +83,32 @@
         android:maxLines="3" />
 
     <LinearLayout
-        android:layout_width="88dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
         <Button
             android:id="@+id/btnAceptar"
-            android:layout_width="70dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="✔"
+            android:backgroundTint="#8BC34A"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="4dp" />
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@android:drawable/ic_menu_edit"
+            android:text="✏️"
             android:backgroundTint="#8BC34A"
             android:textColor="@android:color/white"
             android:layout_marginEnd="4dp" />
 
         <Button
             android:id="@+id/btnCancelar"
-            android:layout_width="70dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="✖"
             android:backgroundTint="#FF5722"

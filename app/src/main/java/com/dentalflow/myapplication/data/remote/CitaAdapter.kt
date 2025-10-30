@@ -8,7 +8,8 @@ import com.dentalflow.myapplication.databinding.ItemCitaBinding
 import com.dentalflow.myapplication.data.remote.model.Cita
 
 class CitaAdapter(
-    private var citas: List<Cita>
+    private var citas: List<Cita>,
+    private val onEditClick: (Cita) -> Unit
 ) : RecyclerView.Adapter<CitaAdapter.CitaViewHolder>() {
 
     inner class CitaViewHolder(val binding: ItemCitaBinding) : RecyclerView.ViewHolder(binding.root)
@@ -36,6 +37,9 @@ class CitaAdapter(
             }
             btnCancelar.setOnClickListener {
                 Toast.makeText(root.context, "Cita ${cita._id} cancelada", Toast.LENGTH_SHORT).show()
+            }
+            btnEditar.setOnClickListener {
+                onEditClick(cita)
             }
         }
     }

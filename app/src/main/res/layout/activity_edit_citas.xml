@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0C0C0"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modificar cita"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:textColor="#FFFFFF"
+            android:background="#2C2CF0"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Contenedor -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Fecha -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="monospace" />
+
+                <EditText
+                    android:id="@+id/etFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Seleccionar fecha"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:drawableEnd="@android:drawable/ic_menu_today"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Paciente -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paciente:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="monospace" />
+
+                <Spinner
+                    android:id="@+id/spinnerPaciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Odontólogo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odontólogo:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="monospace" />
+
+                <Spinner
+                    android:id="@+id/spinnerOdontologo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Motivo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Motivo:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="monospace" />
+
+                <EditText
+                    android:id="@+id/etMotivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Escriba el motivo de la cita"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Estado -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estado:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="monospace" />
+
+                <Spinner
+                    android:id="@+id/spinnerEstado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <Button
+                    android:id="@+id/btnAgendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Actualizar cita"
+                    android:backgroundTint="#2C2CF0"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

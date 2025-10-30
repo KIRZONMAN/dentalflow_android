@@ -17,6 +17,9 @@
         android:theme="@style/Theme.DentalFlow"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Asistente.EditCitas"
+            android:exported="false" />
+        <activity
             android:name=".Asistente.ActivityCrearCita"
             android:exported="false" />
         <activity

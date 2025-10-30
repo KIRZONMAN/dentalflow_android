@@ -7,7 +7,7 @@ const router = express.Router();
 // ============================
 // Helpers
 // ============================
-const ESTADOS = ["Pendiente","Confirmada","Cancelada","Completada"];
+const ESTADOS = ["Pendiente", "Confirmada", "Cancelada", "Completada"];
 
 const parseDateStrict = (v) => {
   const d = v instanceof Date ? v : new Date(v);
@@ -128,39 +128,102 @@ router.get("/", async (req, res) => {
     }
     if (desde || hasta) {
       q.fecha = {};
-      if (desde) q.fecha.$gte = parseDateStrict(`${desde}T00:00:00`);
-      if (hasta) q.fecha.$lte = parseDateStrict(`${hasta}T23:59:59`);
+      if (desde) q.fecha.$gte = new Date(`${desde}T00:00:00`);
+      if (hasta) q.fecha.$lte = new Date(`${hasta}T23:59:59`);
     }
 
     limit = Math.min(Math.max(parseInt(limit ?? "100", 10), 1), 500);
     page = Math.max(parseInt(page ?? "1", 10), 1);
 
-    const cursor = col.find(q).sort({ fecha: -1 }).skip((page - 1) * limit).limit(limit);
-    const [data, total] = await Promise.all([cursor.toArray(), col.countDocuments(q)]);
+    // 🔍 Lookup para traer nombre del paciente
+    const data = await col.aggregate([
+      { $match: q },
+      { $sort: { fecha: -1 } },
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: "pacientes",
+          localField: "paciente_id",
+          foreignField: "_id",
+          as: "paciente",
+        },
+      },
+      { $unwind: { path: "$paciente", preserveNullAndEmptyArrays: true } },
+      {
+        $addFields: {
+          paciente_nombre: {
+            $concat: [
+              { $ifNull: ["$paciente.nombres", ""] },
+              " ",
+              { $ifNull: ["$paciente.apellidos", ""] },
+            ],
+          },
+        },
+      },
+      {
+        $project: {
+          paciente: 0, // no se devuelve el objeto completo del paciente
+        },
+      },
+    ]).toArray();
+
+    const total = await col.countDocuments(q);
     return res.json({ ok: true, total, page, pageSize: limit, data });
   } catch (e) {
+    console.error(e);
     return res.status(500).json({ ok: false, error: e.message });
   }
 });
 
-// ============================
-// GET /api/citas/:id
-// ============================
+
+// Obtener una cita específica con el nombre del paciente
 router.get("/:id", async (req, res) => {
   try {
     const db = await connect();
     const col = db.collection("citas");
-    const _id = oidMaybe(req.params.id);
-    if (!_id) return res.status(400).json({ ok: false, error: "id inválido" });
+    const { id } = req.params;
 
-    const doc = await col.findOne({ _id });
-    if (!doc) return res.status(404).json({ ok: false, error: "Cita no encontrada" });
-    return res.json({ ok: true, data: doc });
+    const oid = oidMaybe(id);
+    if (!oid) return res.status(400).json({ ok: false, error: "ID inválido" });
+
+    const data = await col.aggregate([
+      { $match: { _id: oid } },
+      {
+        $lookup: {
+          from: "pacientes",
+          localField: "paciente_id",
+          foreignField: "_id",
+          as: "paciente",
+        },
+      },
+      { $unwind: { path: "$paciente", preserveNullAndEmptyArrays: true } },
+      {
+        $addFields: {
+          paciente_nombre: {
+            $concat: [
+              { $ifNull: ["$paciente.nombres", ""] },
+              " ",
+              { $ifNull: ["$paciente.apellidos", ""] },
+            ],
+          },
+        },
+      },
+      {
+        $project: {
+          paciente: 0,
+        },
+      },
+    ]).toArray();
+
+    if (!data.length) return res.status(404).json({ ok: false, error: "Cita no encontrada" });
+
+    return res.json({ ok: true, data: data[0] });
   } catch (e) {
+    console.error(e);
     return res.status(500).json({ ok: false, error: e.message });
   }
 });
-
 // ============================
 // PATCH /api/citas/:id
 // - Recalcula total si cambian procedimientos o si viene 'total' explícito

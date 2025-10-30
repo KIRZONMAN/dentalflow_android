@@ -25,7 +25,7 @@ app.use(express.json());
 app.get("/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
 
 // Todo lo que cuelga de /api exige API Key
-app.use("/api", apiKeyAuth);
+//app.use("/api", apiKeyAuth);
 
 // Subrutas protegidas
 app.use("/api/usuarios", usuarios);

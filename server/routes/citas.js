@@ -80,7 +80,9 @@ router.post("/", async (req, res) => {
 
     const parsed = CitaCreate.parse(req.body);
 
-    const usuarioOid = parsed.usuario_id.trim();
+    const { ObjectId } = require("mongodb");
+    const usuarioOid = new ObjectId(parsed.usuario_id.trim());
+
     if (!usuarioOid) throw new Error("usuario_id inválido");
 
     const procs = normalizeProcs(parsed.procedimientos || []);

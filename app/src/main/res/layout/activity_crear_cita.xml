@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0C0C0"
-    android:padding="16dp">
+    android:background="#F5F7FB"
+    android:padding="20dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,28 +15,39 @@
         <!-- Título -->
         <TextView
             android:id="@+id/tvTitulo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Agendar cita"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:fontFamily="monospace"
+            android:gravity="center"
             android:textColor="#FFFFFF"
-            android:background="#2C2CF0"
-            android:paddingHorizontal="24dp"
             android:paddingVertical="8dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="8dp"
+            android:background="#1E52E2"
+            android:fontFamily="sans-serif-medium"
+            android:elevation="4dp"
+            android:backgroundTintMode="src_in"
+            android:clipToOutline="true"
+            android:clipChildren="true"
+            android:clipToPadding="true"
+            android:outlineProvider="background" />
 
-        <!-- Contenedor -->
+        <!-- Contenedor principal -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
+            app:cardElevation="8dp"
             android:backgroundTint="#FFFFFF"
-            android:padding="16dp">
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:padding="24dp">
 
             <LinearLayout
+                android:padding="18dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -45,93 +56,118 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha:"
-                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"
+                    android:text="Fecha"
+                    android:textColor="#1E52E2"
                     android:textSize="18sp"
-                    android:fontFamily="monospace" />
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"/>
 
                 <EditText
                     android:id="@+id/etFecha"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Seleccionar fecha"
-                    android:focusable="false"
-                    android:inputType="none"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/elements_background"
                     android:drawableEnd="@android:drawable/ic_menu_today"
-                    android:layout_marginBottom="12dp" />
+                    android:focusable="false"
+                    android:hint="Seleccionar fecha"
+                    android:inputType="none"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="16sp" />
 
                 <!-- Paciente -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Paciente:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="monospace" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Paciente"
+                    android:textColor="#1E52E2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spinnerPaciente"
+                <AutoCompleteTextView
+                    android:id="@+id/autoPaciente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp" />
+                    android:hint="Buscar paciente por cédula"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:completionThreshold="1" />
 
                 <!-- Odontólogo -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Odontólogo:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="monospace" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Odontólogo"
+                    android:textColor="#1E52E2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerOdontologo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/elements_background"
+                    android:paddingHorizontal="14dp" />
 
                 <!-- Motivo -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Motivo:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="monospace" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Motivo"
+                    android:textColor="#1E52E2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etMotivo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/elements_background"
                     android:hint="Escriba el motivo de la cita"
-                    android:inputType="textMultiLine"
-                    android:minLines="2"
-                    android:layout_marginBottom="12dp" />
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="16sp" />
 
                 <!-- Estado -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Estado:"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="monospace" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Estado"
+                    android:textColor="#1E52E2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerEstado"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/elements_background"
+                    android:paddingHorizontal="14dp" />
 
-                <Button
+                <!-- Botón -->
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAgendar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
                     android:text="Agendar cita"
-                    android:backgroundTint="#2C2CF0"
+                    android:textAllCaps="false"
                     android:textColor="#FFFFFF"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="16dp" />
+                    app:cornerRadius="14dp"
+                    android:backgroundTint="@color/azul_menu"
+                    app:rippleColor="@android:color/white" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

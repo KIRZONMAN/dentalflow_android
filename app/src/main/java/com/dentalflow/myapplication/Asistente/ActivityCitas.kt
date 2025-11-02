@@ -2,9 +2,9 @@ package com.dentalflow.myapplication.Asistente
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.dentalflow.myapplication.data.remote.CitaAdapter
 import com.dentalflow.myapplication.data.remote.model.Cita
 import com.dentalflow.myapplication.databinding.ActivityCitasBinding
@@ -16,8 +16,9 @@ class ActivityCitas : AppCompatActivity() {
 
     private lateinit var binding: ActivityCitasBinding
     private val client = OkHttpClient()
-    private val API_CITAS = "http://10.0.2.2:3000/api/citas"
-    private val API_USUARIOS = "http://10.0.2.2:3000/api/usuarios"
+    private val BASE_URL = "http://10.0.2.2:3000/api"
+    private val API_CITAS = BASE_URL + "/citas"
+    private val API_USUARIOS = BASE_URL + "/usuarios"
     private lateinit var adapter: CitaAdapter
     private val listaCitas = mutableListOf<Cita>()
 
@@ -39,7 +40,7 @@ class ActivityCitas : AppCompatActivity() {
         binding.recyclerCitas.adapter = adapter
         binding.recyclerCitas.layoutManager = LinearLayoutManager(this)
 
-
+        //Ir a Agendar Cita
         binding.btnCrear.setOnClickListener {
             val irAgendarCita = Intent(this, ActivityCrearCita::class.java)
             startActivity(irAgendarCita)
@@ -48,6 +49,7 @@ class ActivityCitas : AppCompatActivity() {
         obtenerCitas()
     }
 
+    //Obtener citas
     private fun obtenerCitas() {
         val request = Request.Builder()
             .url(API_CITAS)
@@ -57,7 +59,11 @@ class ActivityCitas : AppCompatActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    Toast.makeText(this@ActivityCitas, "⚠️ Error de conexión: ${e.message}", Toast.LENGTH_LONG).show()
+                    SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("⚠️ Error de conexión")
+                        .setContentText(e.message ?: "No se pudo conectar al servidor")
+                        .setConfirmText("Aceptar")
+                        .show()
                 }
             }
 
@@ -65,7 +71,12 @@ class ActivityCitas : AppCompatActivity() {
                 val body = response.body?.string()
                 if (!response.isSuccessful || body == null) {
                     runOnUiThread {
-                        Toast.makeText(this@ActivityCitas, "❌ Error: ${response.code}", Toast.LENGTH_LONG).show()
+                        SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("❌ Error")
+                            .setContentText("Código: ${response.code}")
+                            .setConfirmText("Cerrar")
+                            .show()
+                        return@runOnUiThread
                     }
                     return
                 }
@@ -95,14 +106,17 @@ class ActivityCitas : AppCompatActivity() {
 
                 } catch (e: Exception) {
                     runOnUiThread {
-                        Toast.makeText(this@ActivityCitas, "⚠️ Error parseando datos: ${e.message}", Toast.LENGTH_LONG).show()
-                    }
+                        SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("⚠️ Error parseando datos")
+                            .setContentText(e.message ?: "Ocurrió un error al procesar la respuesta")
+                            .setConfirmText("Aceptar")
+                            .show()}
                 }
             }
         })
     }
 
-    /** Llama el endpoint para obtener mediante ID los usuarios*/
+    //Obtener usuarios por ID
     private fun obtenerNombresUsuarios(citas: MutableList<Cita>) {
         val citasActualizadas = mutableListOf<Cita>()
         var pendientes = citas.size
@@ -140,7 +154,7 @@ class ActivityCitas : AppCompatActivity() {
                     verificarFinal()
                 }
 
-                /** Método para actualizar*/
+               //Actualizar info de citas
                 fun verificarFinal() {
                     synchronized(this@ActivityCitas) {
                         citasActualizadas.add(cita)

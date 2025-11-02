@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_menu_edit"
             android:text="✏️"
-            android:backgroundTint="#8BC34A"
+            android:backgroundTint="#49cfc4"
             android:textColor="@android:color/white"
             android:layout_marginEnd="4dp" />
 

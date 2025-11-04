@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.dentalflow.myapplication.data.remote.ApiOdontologoResponse
 import com.dentalflow.myapplication.data.remote.ApiPacientesResponse
+import com.dentalflow.myapplication.data.remote.OdontologoItem
 import com.dentalflow.myapplication.data.remote.PacienteAdapter
 import com.dentalflow.myapplication.data.remote.PacienteItem
 import com.dentalflow.myapplication.databinding.ActivityEditCitasBinding
@@ -26,14 +28,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditCitas : AppCompatActivity() {
-    private var searchTimer: Timer? = null
     private var bloqueandoBusqueda = false
 
     private lateinit var binding: ActivityEditCitasBinding
     private val client = OkHttpClient()
     private val BASE_URL = "http://10.0.2.2:3000/api"
-    private val PACIENTES_URL = BASE_URL + "/pacientes"
-    private val API_URL = BASE_URL + "/citas"
+    private val PACIENTES_URL = "$BASE_URL/pacientes"
+    private val API_URL = "$BASE_URL/citas"
+    private val API_USUARIOS = "$BASE_URL/usuarios"
+    private var searchTimerOdontologo: Timer? = null
+    private var searchTimerPacientes: Timer? = null
+    private var odontologoSeleccionado: OdontologoItem? = null
     private var fechaSeleccionada: Calendar? = null
     private var pacienteSeleccionado: PacienteItem? = null
 
@@ -51,11 +56,11 @@ class EditCitas : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (bloqueandoBusqueda) return
-                searchTimer?.cancel()
+                searchTimerPacientes?.cancel()
 
                 if (!s.isNullOrBlank() && s.length >= 2) {
-                    searchTimer = Timer()
-                    searchTimer!!.schedule(object : TimerTask() {
+                    searchTimerPacientes = Timer()
+                    searchTimerPacientes!!.schedule(object : TimerTask() {
                         override fun run() {
                             runOnUiThread {
                                 buscarPacientes(s.toString())
@@ -74,6 +79,30 @@ class EditCitas : AppCompatActivity() {
             val paciente = binding.autoPaciente.adapter.getItem(position) as PacienteItem
             pacienteSeleccionado = paciente
         }
+        // 🔹 AutoComplete de ODONTÓLOGOS
+        binding.autoOdontologo.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (bloqueandoBusqueda) return
+                searchTimerOdontologo?.cancel()
+
+                if (!s.isNullOrBlank() && s.length >= 2) {
+                    searchTimerOdontologo = Timer()
+                    val query = s.toString().trim()
+                    searchTimerOdontologo!!.schedule(object : TimerTask() {
+                        override fun run() {
+                            runOnUiThread { buscarOdontologos(query) }
+                        }
+                    }, 500)
+                }
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+        binding.autoOdontologo.setOnItemClickListener { _, _, position, _ ->
+            val odontologo = binding.autoOdontologo.adapter.getItem(position) as OdontologoItem
+            odontologoSeleccionado = odontologo
+        }
+
         // Abrir calendario
         binding.etFecha.setOnClickListener { mostrarCalendario() }
 
@@ -124,6 +153,143 @@ class EditCitas : AppCompatActivity() {
         })
     }
 
+    //Cargar todos los odontólogos como sugerencia
+    private fun buscarOdontologos(query: String) {
+        val url = "$API_USUARIOS?rol=Odontologo&search=${query.trim()}"
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@EditCitas, "❌ Error al buscar odontólogos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) {
+                        runOnUiThread {
+                            Toast.makeText(this@EditCitas, "⚠️ Error: ${response.code}", Toast.LENGTH_SHORT).show()
+                        }
+                        return
+                    }
+
+                    val json = response.body?.string()
+                    val gson = Gson()
+                    val apiResponse = gson.fromJson(json, ApiOdontologoResponse::class.java)
+
+                    runOnUiThread {
+                        if (apiResponse.ok && apiResponse.data.isNotEmpty()) {
+                            // 🔸 Mostrar coincidencias
+                            val odontologos = apiResponse.data.map {
+                                OdontologoItem("${it.nombres} ${it.apellidos}", it._id)
+                            }
+
+                            val adapter = ArrayAdapter(
+                                this@EditCitas,
+                                android.R.layout.simple_dropdown_item_1line,
+                                odontologos
+                            )
+                            binding.autoOdontologo.setAdapter(adapter)
+                            binding.autoOdontologo.showDropDown()
+                        } else {
+                            // 🔸 Si no hay resultados → cargar todos los odontólogos disponibles
+                            cargarTodosLosOdontologos()
+                        }
+                    }
+                }
+            }
+        })
+    }
+    private fun cargarTodosLosOdontologos() {
+        val url = "$API_USUARIOS?rol=Odontologo"
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@EditCitas, "❌ Error al cargar odontólogos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) return
+
+                    val json = response.body?.string()
+                    val gson = Gson()
+                    val apiResponse = gson.fromJson(json, ApiOdontologoResponse::class.java)
+
+                    runOnUiThread {
+                        if (apiResponse.ok && apiResponse.data.isNotEmpty()) {
+                            val odontologos = apiResponse.data.map {
+                                OdontologoItem("${it.nombres} ${it.apellidos}", it._id)
+                            }
+
+                            val adapter = ArrayAdapter(
+                                this@EditCitas,
+                                android.R.layout.simple_dropdown_item_1line,
+                                odontologos
+                            )
+                            binding.autoOdontologo.setAdapter(adapter)
+                            binding.autoOdontologo.showDropDown()
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    //Cargar el odontólogo actual
+    private fun cargarOdontologoPorId(odontologoId: String) {
+        val url = "$API_USUARIOS/$odontologoId"
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(
+                        this@EditCitas,
+                        "⚠️ Error al obtener odontólogo actual",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) return
+
+                    val json = JSONObject(response.body!!.string())
+                    val data = json.optJSONObject("data") ?: return
+
+                    val nombreCompleto =
+                        "${data.optString("nombres", "")} ${data.optString("apellidos", "")}".trim()
+
+                    runOnUiThread {
+                        val odontologo = OdontologoItem(nombreCompleto, odontologoId)
+                        val adapter = ArrayAdapter(
+                            this@EditCitas,
+                            android.R.layout.simple_dropdown_item_1line,
+                            listOf(odontologo)
+                        )
+                        binding.autoOdontologo.setAdapter(adapter)
+                        binding.autoOdontologo.setText(nombreCompleto, false)
+                        odontologoSeleccionado = odontologo
+                    }
+                }
+            }
+        })
+    }
 
     private fun mostrarCalendario() {
         val calendario = Calendar.getInstance()
@@ -166,7 +332,12 @@ class EditCitas : AppCompatActivity() {
             return
         }
 
-        val usuarioId = binding.spinnerOdontologo.selectedItem.toString()
+        val usuarioId = odontologoSeleccionado?.id
+        if (usuarioId == null) {
+            Toast.makeText(this, "⚠️ Selecciona un odontólogo válido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val motivo = binding.etMotivo.text.toString().trim()
 
         if (fechaSeleccionada == null || motivo.isEmpty()) {
@@ -291,17 +462,13 @@ class EditCitas : AppCompatActivity() {
                             bloqueandoBusqueda = true
                             binding.autoPaciente.setText(pacientes[0].toString(), false)
                             pacienteSeleccionado = pacientes[0]
+                            val usuarioNombre = data.optString("usuario_nombre", usuarioId)
 
                             // Desactivar búsqueda tras breve pausa
                             binding.autoPaciente.postDelayed({
                                 bloqueandoBusqueda = false
                             }, 500)
-                            val odontologos = listOf(usuarioId)
-                            binding.spinnerOdontologo.adapter = ArrayAdapter(
-                                this@EditCitas,
-                                android.R.layout.simple_spinner_dropdown_item,
-                                odontologos
-                            )
+                            cargarOdontologoPorId(usuarioId)
                         }
                     }
                 }

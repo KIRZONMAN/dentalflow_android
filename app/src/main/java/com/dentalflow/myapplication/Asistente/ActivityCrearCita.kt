@@ -12,7 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.dentalflow.myapplication.R
+import com.dentalflow.myapplication.data.remote.ApiOdontologoResponse
 import com.dentalflow.myapplication.data.remote.ApiPacientesResponse
+import com.dentalflow.myapplication.data.remote.OdontologoItem
 import com.dentalflow.myapplication.data.remote.PacienteAdapter
 import com.dentalflow.myapplication.data.remote.PacienteItem
 import com.dentalflow.myapplication.databinding.ActivityCrearCitaBinding
@@ -35,10 +37,14 @@ class ActivityCrearCita : AppCompatActivity() {
     private val BASE_URL = "http://10.0.2.2:3000/api"
     private val PACIENTES_URL = "$BASE_URL/pacientes"
     private val API_URL = "$BASE_URL/citas"
+    private val API_USUARIOS = "$BASE_URL/usuarios"
     private var fechaSeleccionada: Calendar? = null
-    private var searchTimer: Timer? = null
+    private var searchTimerPaciente: Timer? = null
+    private var searchTimerOdontologo: Timer? = null
+
     private var bloqueandoBusqueda = false
     private var pacienteSeleccionado: PacienteItem? = null
+    private var odontologoSeleccionado: OdontologoItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,21 +54,20 @@ class ActivityCrearCita : AppCompatActivity() {
         //Spinner de estados
         val estados = listOf("Pendiente","Confirmada")
         binding.spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, estados)
-        //Odontologos simulados (POR EL MOMENTO)
-        val odontologos = listOf("68cf25706f565e081eca7c7d")
 
-        // 🔹 AutoComplete de pacientes
+        // 🔹 AutoComplete de PACIENTES
         binding.autoPaciente.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (bloqueandoBusqueda) return
-                searchTimer?.cancel()
+                searchTimerPaciente?.cancel()
 
                 if (!s.isNullOrBlank() && s.length >= 2) {
-                    searchTimer = Timer()
-                    searchTimer!!.schedule(object : TimerTask() {
+                    searchTimerPaciente = Timer()
+                    val query = s.toString().trim()
+                    searchTimerPaciente!!.schedule(object : TimerTask() {
                         override fun run() {
-                            runOnUiThread { buscarPacientes(s.toString()) }
+                            runOnUiThread { buscarPacientes(query) }
                         }
                     }, 500)
                 }
@@ -70,13 +75,37 @@ class ActivityCrearCita : AppCompatActivity() {
             override fun afterTextChanged(s: android.text.Editable?) {}
         })
 
-// 🔹 Al seleccionar paciente
+        // 🔹 AutoComplete de ODONTÓLOGOS
+        binding.autoOdontologo.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (bloqueandoBusqueda) return
+                searchTimerOdontologo?.cancel()
+
+                if (!s.isNullOrBlank() && s.length >= 2) {
+                    searchTimerOdontologo = Timer()
+                    val query = s.toString().trim()
+                    searchTimerOdontologo!!.schedule(object : TimerTask() {
+                        override fun run() {
+                            runOnUiThread { buscarOdontologos(query) }
+                        }
+                    }, 500)
+                }
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+
+        // 🔹 Al seleccionar paciente
         binding.autoPaciente.setOnItemClickListener { _, _, position, _ ->
             val paciente = binding.autoPaciente.adapter.getItem(position) as PacienteItem
             pacienteSeleccionado = paciente
         }
 
-        binding.spinnerOdontologo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, odontologos)
+        // 🔹 Al seleccionar odontólogo
+        binding.autoOdontologo.setOnItemClickListener { _, _, position, _ ->
+            val odontologo = binding.autoOdontologo.adapter.getItem(position) as OdontologoItem
+            odontologoSeleccionado = odontologo
+        }
 
         // 🔹 Abrir calendario
         binding.etFecha.setOnClickListener { mostrarCalendario() }
@@ -87,7 +116,7 @@ class ActivityCrearCita : AppCompatActivity() {
 
     private fun buscarPacientes(query: String) {
         val url = "$PACIENTES_URL?q=${query.trim()}"
-
+        val urlOdontologo = "$API_USUARIOS?rol=Odontologo"
         val request = Request.Builder()
             .url(url)
             .get()
@@ -120,6 +149,52 @@ class ActivityCrearCita : AppCompatActivity() {
                             }
                             val adapter = PacienteAdapter(this@ActivityCrearCita, pacientes)
                             binding.autoPaciente.setAdapter(adapter)
+                            binding.autoPaciente.showDropDown()
+                        }
+                    }
+                }
+            }
+        })
+    }
+    private fun buscarOdontologos(query: String) {
+        val url = "$API_USUARIOS?rol=Odontologo&search=${query.trim()}"
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@ActivityCrearCita, "❌ Error al buscar odontólogos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) {
+                        runOnUiThread {
+                            Toast.makeText(this@ActivityCrearCita, "⚠️ Error: ${response.code}", Toast.LENGTH_SHORT).show()
+                        }
+                        return
+                    }
+
+                    val json = response.body?.string()
+                    val gson = Gson()
+                    val apiResponse = gson.fromJson(json, ApiOdontologoResponse::class.java) // aún puedes usar esta clase
+
+                    runOnUiThread {
+                        if (apiResponse.ok && apiResponse.data.isNotEmpty()) {
+                            val odontologos = apiResponse.data.map {
+                                OdontologoItem("${it.nombres} ${it.apellidos}", it._id)
+                            }
+                            val adapter = ArrayAdapter(
+                                this@ActivityCrearCita,
+                                android.R.layout.simple_dropdown_item_1line,
+                                odontologos
+                            )
+                            binding.autoOdontologo.setAdapter(adapter)
+                            binding.autoOdontologo.showDropDown()
                         }
                     }
                 }
@@ -165,7 +240,11 @@ class ActivityCrearCita : AppCompatActivity() {
             Toast.makeText(this, "⚠️ Selecciona un paciente válido", Toast.LENGTH_SHORT).show()
             return
         }
-        val usuarioId = binding.spinnerOdontologo.selectedItem.toString()
+        val usuarioId = odontologoSeleccionado?.id
+        if (usuarioId == null) {
+            Toast.makeText(this, "⚠️ Selecciona un odontólogo válido", Toast.LENGTH_SHORT).show()
+            return
+        }
         val motivo = binding.etMotivo.text.toString().trim()
         val estado = binding.spinnerEstado.selectedItem.toString()
 

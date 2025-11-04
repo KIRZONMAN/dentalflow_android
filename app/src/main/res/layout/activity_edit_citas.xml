@@ -107,13 +107,15 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spinnerOdontologo"
+                <AutoCompleteTextView
+                    android:id="@+id/autoOdontologo"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/elements_background"
-                    android:paddingHorizontal="14dp" />
+                    android:layout_height="wrap_content"
+                    android:hint="Buscar odontólogo por nombre"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:completionThreshold="1" />
 
                 <!-- Motivo -->
                 <TextView

@@ -126,7 +126,6 @@ router.get("/", async (req, res) => {
       const oid = oidMaybe(usuario_id);
       if (!oid) return res.status(400).json({ ok: false, error: "usuario_id inválido" });
       q.usuario_id = String(usuario_id);
-
     }
     if (estado) {
       if (!ESTADOS.includes(String(estado))) {
@@ -174,6 +173,68 @@ router.get("/", async (req, res) => {
           paciente: 0, // no se devuelve el objeto completo del paciente
         },
       },
+    ]).toArray();
+
+    const total = await col.countDocuments(q);
+    return res.json({ ok: true, total, page, pageSize: limit, data });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+// ============================
+// GET citasHoy
+router.get("/hoy", async (req, res) => {
+  try {
+    const db = await connect();
+    const col = db.collection("citas");
+
+    const { usuario_id } = req.query;
+    let { limit, page } = req.query;
+
+    const ahora = new Date();
+
+    // Comenzamos desde ahora
+    const q = {
+      fecha: { $gte: ahora }, // solo citas futuras
+    };
+
+    if (usuario_id) {
+      const oid = oidMaybe(usuario_id);
+      if (!oid) return res.status(400).json({ ok: false, error: "usuario_id inválido" });
+      q.usuario_id = String(usuario_id);
+    }
+
+    limit = Math.min(Math.max(parseInt(limit ?? "100", 10), 1), 500);
+    page = Math.max(parseInt(page ?? "1", 10), 1);
+
+    const data = await col.aggregate([
+      { $match: q },
+      { $sort: { fecha: 1 } }, // próximas primero
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: "pacientes",
+          localField: "paciente_id",
+          foreignField: "_id",
+          as: "paciente",
+        },
+      },
+      { $unwind: { path: "$paciente", preserveNullAndEmptyArrays: true } },
+      {
+        $addFields: {
+          paciente_nombre: {
+            $concat: [
+              { $ifNull: ["$paciente.nombres", ""] },
+              " ",
+              { $ifNull: ["$paciente.apellidos", ""] },
+            ],
+          },
+        },
+      },
+      { $project: { paciente: 0 } },
     ]).toArray();
 
     const total = await col.countDocuments(q);

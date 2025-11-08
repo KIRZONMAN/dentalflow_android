@@ -13,4 +13,7 @@ data class PacienteDto(
     val direccion: String? = null,
     val correo: String? = null,
     val tipo_sangre: String
-)
+){
+    val nombreCompleto: String
+        get() = "$nombres $apellidos"
+}

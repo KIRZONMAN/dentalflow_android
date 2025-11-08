@@ -35,6 +35,7 @@ app.use("/api/historias", historias);
 app.use("/api/procedimientos", procedimientos);
 app.use("/api/roles", roles);
 app.use("/api/ordenes-laboratorio", ordenesLab);
+app.use("/api/historias-clinicas", require("./routes/historiasClinicas"));
 
 // 404 para cualquier endpoint no encontrado
 app.use((req, res) => res.status(404).json({ ok: false, error: "Not found" }));

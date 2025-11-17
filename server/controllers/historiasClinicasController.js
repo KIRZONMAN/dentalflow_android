@@ -35,7 +35,7 @@ function normalizeArray(value) {
       }
       return newItem;
     }
-    return item; 
+    return item;
   });
 }
 
@@ -85,6 +85,32 @@ exports.obtenerHistoria = async (req, res) => {
     res.status(500).json({ ok: false, error: e.message });
   }
 };
+
+// GET /api/historias-clinicas/paciente/:paciente_id
+exports.obtenerHistoriaPaciente = async (req, res) => {
+  try {
+    const db = await connect();
+    const col = db.collection("historias_clinicas");
+
+    const pacienteId = String(req.params.paciente_id).trim();
+
+    const historia = await col.findOne({ paciente_id: pacienteId });
+
+    if (!historia) {
+      return res.json({
+        ok: false, error: "Historia no encontrada", params: req.params,
+        query: req.query,
+        body: req.body,
+      });
+    }
+
+    return res.json({ ok: true, data: historia });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+};
+
+
 
 // ===============================================
 // POST /api/historias-clinicas

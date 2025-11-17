@@ -9,4 +9,6 @@ data class Cita(
     val total: Double?,
     val paciente_id: String,
     var usuario_id: String
-)
+) {
+    override fun toString(): String = "$paciente_nombre - $fecha"
+}

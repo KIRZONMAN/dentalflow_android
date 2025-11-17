@@ -32,7 +32,7 @@ class EditCitas : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditCitasBinding
     private val client = OkHttpClient()
-    private val BASE_URL = "http://10.0.2.2:3000/api"
+    private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api"
     private val PACIENTES_URL = "$BASE_URL/pacientes"
     private val API_URL = "$BASE_URL/citas"
     private val API_USUARIOS = "$BASE_URL/usuarios"

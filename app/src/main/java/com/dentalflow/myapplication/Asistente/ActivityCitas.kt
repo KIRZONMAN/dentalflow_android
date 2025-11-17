@@ -16,7 +16,7 @@ class ActivityCitas : AppCompatActivity() {
 
     private lateinit var binding: ActivityCitasBinding
     private val client = OkHttpClient()
-    private val BASE_URL = "http://10.0.2.2:3000/api"
+    private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api"
     private val API_CITAS = BASE_URL + "/citas"
     private val API_USUARIOS = BASE_URL + "/usuarios"
     private lateinit var adapter: CitaAdapter

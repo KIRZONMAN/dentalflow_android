@@ -105,7 +105,6 @@ router.post("/", async (req, res) => {
       observaciones: obsNorm,
       productos,
       // campos “extra” compatibles con lo que ya existe en BD (reportes)
-      tipo: "laboratorio",
       fecha_expedicion: fechaCre,         // se indexa en ix_ol_fecha
       createdAt: now,
       updatedAt: now,

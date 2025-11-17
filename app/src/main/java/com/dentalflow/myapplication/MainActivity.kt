@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
      * Devuelve el objeto JSON del usuario (o null si no).
      */
     private fun fetchUserByEmail(email: String): JsonObject? {
-        val url = "${Http.baseUrl}/usuarios"
+        val url = "https://lucid-youthfulness-production.up.railway.app/api/usuarios"
             .toHttpUrl()
             .newBuilder()
             .addQueryParameter("search", email)

@@ -20,7 +20,7 @@ class ActivityAgenda : AppCompatActivity() {
 
     private lateinit var binding: ActivityAgendaBinding
     private val client = OkHttpClient()
-    private val BASE_URL = "http://10.0.2.2:3000/api"
+    private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api"
     private val API_PACIENTES = "$BASE_URL/pacientes"
     private lateinit var adapter: PacientesAdapter
     private val listaPacientes = mutableListOf<PacienteDto>()

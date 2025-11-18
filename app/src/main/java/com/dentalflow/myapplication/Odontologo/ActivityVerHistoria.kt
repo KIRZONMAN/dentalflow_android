@@ -20,7 +20,7 @@ class ActivityVerHistoria : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerHistoriaBinding
     private val client = OkHttpClient()
-    private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api/historias-clinicas/paciente/"
+    private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api/historias-clinicas?paciente_id="
     private lateinit var adapter: HistoriaAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +64,17 @@ class ActivityVerHistoria : AppCompatActivity() {
                 if (!response.isSuccessful || body == null) return
 
                 try {
-                    val json = JSONObject(body).getJSONObject("data")
+                    val dataArray = JSONObject(body).getJSONArray("data")
+                    if (dataArray.length() == 0) {
+                        runOnUiThread {
+                            SweetAlertDialog(this@ActivityVerHistoria, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Sin datos")
+                                .setContentText("Este paciente no tiene historia clínica registrada.")
+                                .show()
+                        }
+                        return
+                    }
+                    val json = dataArray.getJSONObject(0)
 
                     // ---------------------
                     // PARSEO DE ANTECEDENTES
@@ -151,7 +161,8 @@ class ActivityVerHistoria : AppCompatActivity() {
 
                     // 2) DERECHA: procedimientos formateados
                     val listDer = listaProcedimientos.map {
-                        "• ${it.tratamiento}\n${it.odontologo}\n${it.fecha.substring(0,10)}\n${it.resultado}"
+                        val fecha = it.fecha?.substring(0, 10) ?: "Sin fecha"
+                        "• ${it.tratamiento}\n${it.odontologo}\n$fecha\n${it.resultado}"
                     }
 
                     // 3) EMPAREJAR AMBAS LISTAS

@@ -13,11 +13,11 @@ import org.json.JSONObject
 import java.io.IOException
 
 class ActivityCitas : AppCompatActivity() {
-
+    private var sseCall: Call? = null
     private lateinit var binding: ActivityCitasBinding
     private val client = OkHttpClient()
     private val BASE_URL = "https://lucid-youthfulness-production.up.railway.app/api"
-    private val API_CITAS = BASE_URL + "/citas"
+    private val API_CITAS = "http://10.0.2.2:3000/api/citas"
     private val API_USUARIOS = BASE_URL + "/usuarios"
     private lateinit var adapter: CitaAdapter
     private val listaCitas = mutableListOf<Cita>()
@@ -47,6 +47,7 @@ class ActivityCitas : AppCompatActivity() {
         }
 
         obtenerCitas()
+        escucharCitasStream()
     }
 
     //Obtener citas
@@ -115,6 +116,118 @@ class ActivityCitas : AppCompatActivity() {
             }
         })
     }
+    //CAMBIOS EN LA DB
+    private fun escucharCitasStream() {
+
+        val request = Request.Builder()
+            .url("$API_CITAS/stream")
+            .addHeader("Accept", "text/event-stream")
+            .build()
+
+        sseCall = client.newCall(request)
+
+        sseCall?.enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {
+                // 🔄 Esperar 2 segundos y reconectar automáticamente
+                binding.recyclerCitas.postDelayed({
+                    escucharCitasStream()
+                }, 2000)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) return
+
+                val source = response.body?.source() ?: return
+
+                try {
+                    while (!call.isCanceled()) {
+                        val line = source.readUtf8Line() ?: continue
+
+                        if (line.startsWith("data: ")) {
+                            val rawJson = line.removePrefix("data: ").trim()
+
+                            val change = JSONObject(rawJson)
+                            val operation = change.getString("operationType")
+                            val fullDoc = change.optJSONObject("fullDocument")
+
+                            runOnUiThread {
+
+                                when (operation) {
+
+                                    "insert" -> {
+                                        if (fullDoc != null) {
+                                            val nueva = parsearCita(fullDoc)
+                                            listaCitas.add(0, nueva)
+                                            adapter.notifyItemInserted(0)
+                                        }
+                                    }
+
+                                    "update", "replace" -> {
+                                        if (fullDoc != null) {
+                                            val actual = parsearCita(fullDoc)
+                                            val index = listaCitas.indexOfFirst { it._id == actual._id }
+                                            if (index != -1) {
+                                                listaCitas[index] = actual
+                                                adapter.notifyItemChanged(index)
+                                            }
+                                        }
+                                    }
+
+                                    "delete" -> {
+                                        val id = change
+                                            .getJSONObject("documentKey")
+                                            .getString("_id")
+
+                                        val index = listaCitas.indexOfFirst { it._id == id }
+
+                                        if (index != -1) {
+                                            listaCitas.removeAt(index)
+                                            adapter.notifyItemRemoved(index)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Si falla, reconectar
+                    binding.recyclerCitas.postDelayed({
+                        escucharCitasStream()
+                    }, 2000)
+                }
+            }
+        })
+    }
+
+    private fun parsearCita(obj: JSONObject): Cita {
+
+        // Maneja _id como string o como objeto BSON
+        val id = if (obj.optJSONObject("_id") != null) {
+            obj.getJSONObject("_id").getString("\$oid")
+        } else {
+            obj.optString("_id")
+        }
+
+        // Maneja fecha como ISO string o BSON
+        val fecha = when {
+            obj.optJSONObject("fecha") != null ->
+                java.util.Date(obj.getJSONObject("fecha").getLong("\$date")).toString()
+            else ->
+                obj.optString("fecha")
+        }
+
+        return Cita(
+            _id = id,
+            fecha = fecha,
+            estado = obj.optString("estado", "Pendiente"),
+            motivo = obj.optString("motivo", ""),
+            total = obj.optDouble("total", 0.0),
+            paciente_id = obj.optString("paciente_id", ""),
+            paciente_nombre = obj.optString("paciente_nombre", "Paciente"),
+            usuario_id = obj.optString("usuario_id", "")
+        )
+    }
 
     //Obtener usuarios por ID
     private fun obtenerNombresUsuarios(citas: MutableList<Cita>) {
@@ -153,20 +266,25 @@ class ActivityCitas : AppCompatActivity() {
                     }
                     verificarFinal()
                 }
-
                //Actualizar info de citas
-                fun verificarFinal() {
-                    synchronized(this@ActivityCitas) {
-                        citasActualizadas.add(cita)
-                        pendientes--
-                        if (pendientes == 0) {
-                            runOnUiThread {
-                                adapter.updateData(citasActualizadas)
-                            }
-                        }
-                    }
-                }
+               fun verificarFinal() {
+                   synchronized(this@ActivityCitas) {
+                       citasActualizadas.add(cita)
+                       pendientes--
+                       if (pendientes == 0) {
+                           runOnUiThread {
+                               listaCitas.clear()
+                               listaCitas.addAll(citasActualizadas)
+                               adapter.updateData(listaCitas)
+                           }}
+                   }
+               }
+
             })
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        sseCall?.cancel()
     }
 }

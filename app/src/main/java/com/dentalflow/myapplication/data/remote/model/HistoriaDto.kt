@@ -6,17 +6,17 @@ data class HistoriaClinicaDto(
     val antecedentes_medicos: List<Antecedente> = emptyList(),
     val alergias: List<Alergia> = emptyList(),
     val recetas_medicas: List<Receta> = emptyList(),
-    val procedimientos_realizados: List<Procedimiento>
+    val procedimientos_realizados: List<Procedimiento> = emptyList()
 )
 
 data class Antecedente(
-    val enfermedad: String,
-    val gravedad: String
+    val enfermedad: String?,
+    val gravedad: String?
 )
 
 data class Alergia(
-    val alergia_a: String,
-    val reaccion: String
+    val alergia_a: String?,
+    val reaccion: String?
 )
 
 data class Receta(
@@ -27,8 +27,8 @@ data class Receta(
 )
 
 data class Procedimiento(
-    val tratamiento: String,
-    val fecha: String,
-    val odontologo: String,
-    val resultado: String
+    val tratamiento: String?,
+    val fecha: String?,
+    val odontologo: String?,
+    val resultado: String?
 )

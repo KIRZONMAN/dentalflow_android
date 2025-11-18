@@ -15,6 +15,9 @@ const procedimientos = require("./routes/procedimientos");
 const roles = require("./routes/roles");
 const ordenesLab = require("./routes/ordenes_laboratorio");
 
+const proveedores = require("./routes/proveedores");
+const insumos = require("./routes/insumos");
+
 const app = express();
 
 // Middlewares base
@@ -36,6 +39,9 @@ app.use("/api/procedimientos", procedimientos);
 app.use("/api/roles", roles);
 app.use("/api/ordenes-laboratorio", ordenesLab);
 app.use("/api/historias-clinicas", require("./routes/historiasClinicas"));
+app.use("/api/proveedores", proveedores);
+app.use("/api/insumos", insumos);
+app.use("/api/ordenes-compras", require("./routes/ordenes_compras"));
 
 // 404 para cualquier endpoint no encontrado
 app.use((req, res) => res.status(404).json({ ok: false, error: "Not found" }));
@@ -50,5 +56,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`DentalFlow server running on http://localhost:${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
-  
+
 });

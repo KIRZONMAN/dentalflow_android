@@ -245,6 +245,39 @@ router.get("/hoy", async (req, res) => {
   }
 });
 
+// STREAM DE CITAS EN TIEMPO REAL
+router.get("/stream", async (req, res) => {
+  try {
+    const db = await connect();
+    const col = db.collection("citas");
+
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.flushHeaders();
+
+    // Change Stream
+    const changeStream = col.watch([], { fullDocument: "updateLookup" });
+
+    changeStream.on("change", (change) => {
+      res.write(`data: ${JSON.stringify(change)}\n\n`);
+    });
+
+    changeStream.on("error", (err) => {
+      console.error("❌ Error en Change Stream:", err);
+      res.write(`event: error\ndata: "${err.message}"\n\n`);
+    });
+
+    req.on("close", () => {
+      changeStream.close();
+      res.end();
+    });
+
+  } catch (err) {
+    console.error("❌ Error SSE:", err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 // Obtener una cita específica con el nombre del paciente
 router.get("/:id", async (req, res) => {

@@ -78,111 +78,11 @@
                         </LinearLayout>
 
                         <!-- Cabecera tabla -->
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:background="#2E54B2"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="8dp"
-                                android:orientation="horizontal">
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Hora"
-                                    android:textColor="#FFFFFF"
-                                    android:textStyle="bold" />
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Paciente"
-                                    android:textColor="#FFFFFF"
-                                    android:textStyle="bold" />
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Estado"
-                                    android:textColor="#FFFFFF"
-                                    android:textStyle="bold" />
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Acciones"
-                                    android:textColor="#FFFFFF"
-                                    android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <!-- Fila ejemplo -->
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="10dp"
-                                android:orientation="horizontal">
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="10:00:00" />
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Pedro López Rivera" />
-
-                            <com.google.android.material.chip.Chip
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="pendiente"
-                                    style="@style/Widget.Material3.Chip.Assist.Elevated" />
-
-                            <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:orientation="horizontal">
-
-                                <ImageButton
-                                        android:layout_width="36dp"
-                                        android:layout_height="36dp"
-                                        android:background="?selectableItemBackgroundBorderless"
-                                        android:contentDescription="Ver"
-                                        android:src="@android:drawable/ic_menu_view" />
-
-                                <ImageButton
-                                        android:layout_width="36dp"
-                                        android:layout_height="36dp"
-                                        android:background="?selectableItemBackgroundBorderless"
-                                        android:contentDescription="Editar"
-                                        android:src="@android:drawable/ic_menu_edit" />
-
-                                <ImageButton
-                                        android:layout_width="36dp"
-                                        android:layout_height="36dp"
-                                        android:background="?selectableItemBackgroundBorderless"
-                                        android:contentDescription="Más"
-                                        android:src="@android:drawable/ic_menu_more" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:text="Registros adicionales en la tabla (máx. 9)"
-                                android:textColor="#4A5568"
-                                android:textStyle="bold" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvCitasHoy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -260,14 +160,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Insumos" />
-
-                            <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipPedidos"
-                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:text="Pedidos" />
 
                             <com.google.android.material.chip.Chip
                                     android:id="@+id/chipProtesis"

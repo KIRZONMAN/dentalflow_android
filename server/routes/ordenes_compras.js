@@ -13,7 +13,7 @@ const Detalle = z.object({
 const OrdenCompraCreate = z.object({
   proveedor_id: z.string().min(1),
   usuario_id: z.string().regex(/^[0-9a-fA-F]{24}$/),
-  estado: z.enum(["Borrador","Enviada","Recibida","Anulada"]).default("Enviada"),
+  estado: z.enum(["Borrador", "Enviada", "Recibida", "Anulada"]).default("Enviada"),
   fecha_expedicion: z.preprocess((v) => (v ? new Date(v) : new Date()), z.date()).optional(),
   fecha_vencimiento: z.preprocess((v) => (v ? new Date(v) : null), z.date().nullable()).optional(),
   detalles: z.array(Detalle).min(1),
@@ -55,7 +55,14 @@ router.post("/", async (req, res) => {
     };
 
     const r = await col.insertOne(doc);
-    res.status(201).json({ ok: true, id: r.insertedId.toString(), total });
+    res.status(201).json({
+      ok: true,
+      data: {
+        id: r.insertedId.toString(),
+        total
+      }
+    });
+
   } catch (e) {
     res.status(400).json({ ok: false, error: e.message });
   }

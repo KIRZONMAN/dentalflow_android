@@ -2,14 +2,15 @@ package com.dentalflow.myapplication.data.remote
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.dentalflow.myapplication.databinding.ItemCitaBinding
 import com.dentalflow.myapplication.data.remote.model.Cita
+import com.dentalflow.myapplication.databinding.ItemCitaBinding
 
 class CitaAdapter(
     private var citas: List<Cita>,
-    private val onEditClick: (Cita) -> Unit
+    private val onEditClick: (Cita) -> Unit,
+    private val onAceptarClick: (Cita) -> Unit,
+    private val onCancelarClick: (Cita) -> Unit
 ) : RecyclerView.Adapter<CitaAdapter.CitaViewHolder>() {
 
     inner class CitaViewHolder(val binding: ItemCitaBinding) : RecyclerView.ViewHolder(binding.root)
@@ -22,22 +23,24 @@ class CitaAdapter(
     override fun onBindViewHolder(holder: CitaViewHolder, position: Int) {
         val cita = citas[position]
         with(holder.binding) {
-            txtFecha.text = cita.fecha.substring(0, 10) // formato YYYY-MM-DD
-            txtHora.text = cita.fecha.substring(11, 16) // formato HH:MM
+
+            txtFecha.text = cita.fecha.substring(0, 10)
+            txtHora.text = cita.fecha.substring(11, 16)
             txtEstado.text = cita.estado
             txtMotivo.text = cita.motivo ?: "-"
             txtTotal.text = cita.total?.toString() ?: "0"
             txtCedula.text = cita.paciente_id
             txtPacienteNombre.text = cita.paciente_nombre ?: "Desconocido"
-            txtOdontologo.text = cita.usuario_id
-
+            txtOdontologo.text = cita.usuario_nombre ?: "Cargando..."
 
             btnAceptar.setOnClickListener {
-                Toast.makeText(root.context, "Cita ${cita._id} aceptada", Toast.LENGTH_SHORT).show()
+                onAceptarClick(cita)
             }
+
             btnCancelar.setOnClickListener {
-                Toast.makeText(root.context, "Cita ${cita._id} cancelada", Toast.LENGTH_SHORT).show()
+                onCancelarClick(cita)
             }
+
             btnEditar.setOnClickListener {
                 onEditClick(cita)
             }

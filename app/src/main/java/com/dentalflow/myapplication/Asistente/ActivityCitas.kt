@@ -9,6 +9,8 @@ import com.dentalflow.myapplication.data.remote.CitaAdapter
 import com.dentalflow.myapplication.data.remote.model.Cita
 import com.dentalflow.myapplication.databinding.ActivityCitasBinding
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
@@ -27,16 +29,39 @@ class ActivityCitas : AppCompatActivity() {
         binding = ActivityCitasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = CitaAdapter(listaCitas) { citaSeleccionada ->
-            val intent = Intent(this, EditCitas::class.java)
-            intent.putExtra("CITA_ID", citaSeleccionada._id)
-            intent.putExtra("FECHA", citaSeleccionada.fecha)
-            intent.putExtra("MOTIVO", citaSeleccionada.motivo)
-            intent.putExtra("ESTADO", citaSeleccionada.estado)
-            intent.putExtra("PACIENTE_ID", citaSeleccionada.paciente_id)
-            intent.putExtra("USUARIO_ID", citaSeleccionada.usuario_id)
-            startActivity(intent)
-        }
+        adapter = CitaAdapter(
+            listaCitas,
+            onEditClick = { cita ->
+                // EDITAR CITA
+                val intent = Intent(this, EditCitas::class.java)
+                intent.putExtra("CITA_ID", cita._id)
+                startActivity(intent)
+            },
+            onAceptarClick = { cita ->
+                SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Aceptar cita")
+                    .setContentText("¿Deseas aceptar la cita de ${cita.paciente_nombre}?")
+                    .setConfirmText("Sí")
+                    .setCancelText("No")
+                    .setConfirmClickListener {
+                        it.dismissWithAnimation()
+                        aceptarCita(cita)
+                    }
+                    .show()
+            },
+            onCancelarClick = { cita ->
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Cancelar cita")
+                    .setContentText("¿Estás seguro de cancelar esta cita?")
+                    .setConfirmText("Confirmar")
+                    .setCancelText("Volver")
+                    .setConfirmClickListener {
+                        it.dismissWithAnimation()
+                        cancelarCita(cita)
+                    }
+                    .show()
+            }
+        )
         binding.recyclerCitas.adapter = adapter
         binding.recyclerCitas.layoutManager = LinearLayoutManager(this)
 
@@ -48,6 +73,101 @@ class ActivityCitas : AppCompatActivity() {
 
         obtenerCitas()
         escucharCitasStream()
+    }
+    private fun aceptarCita(cita: Cita) {
+        val url = "$API_CITAS/${cita._id}"
+        val json = """
+        {
+            "estado": "Confirmada"
+        }
+    """.trimIndent()
+
+        val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
+        val request = Request.Builder()
+            .url(url)
+            .patch(body)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText("No se pudo aceptar la cita")
+                        .show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                if (!response.isSuccessful) {
+                    runOnUiThread {
+                        SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error")
+                            .setContentText("Error en el servidor: $responseBody")
+                            .show()
+                    }
+                    return
+                }
+
+                runOnUiThread {
+                    SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Cita confirmada")
+                        .setContentText("La cita fue cambiada a Confirmada")
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun cancelarCita(cita: Cita) {
+        val url = "$API_CITAS/${cita._id}"
+        val json = """
+        {
+            "estado": "Cancelada"
+        }
+    """.trimIndent()
+
+        val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
+        val request = Request.Builder()
+            .url(url)
+            .patch(body)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText("No se pudo cancelar la cita")
+                        .show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                if (!response.isSuccessful) {
+                    runOnUiThread {
+                        SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Error")
+                            .setContentText("Error en el servidor: $responseBody")
+                            .show()
+                    }
+                    return
+                }
+
+                runOnUiThread {
+                    SweetAlertDialog(this@ActivityCitas, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Cita cancelada")
+                        .setContentText("La cita fue cambiada a Cancelada")
+                        .show()
+                }
+            }
+        })
     }
 
     //Obtener citas
@@ -168,7 +288,17 @@ class ActivityCitas : AppCompatActivity() {
                                             val actual = parsearCita(fullDoc)
                                             val index = listaCitas.indexOfFirst { it._id == actual._id }
                                             if (index != -1) {
-                                                listaCitas[index] = actual
+                                                val anterior = listaCitas[index]
+                                                val actual = parsearCita(fullDoc)
+                                                val merged = actual.copy(
+                                                    paciente_nombre =
+                                                        if (actual.paciente_nombre.isNullOrBlank())
+                                                            anterior.paciente_nombre
+                                                        else
+                                                            actual.paciente_nombre
+                                                )
+
+                                                listaCitas[index] = merged
                                                 adapter.notifyItemChanged(index)
                                             }
                                         }
@@ -199,17 +329,14 @@ class ActivityCitas : AppCompatActivity() {
             }
         })
     }
-
     private fun parsearCita(obj: JSONObject): Cita {
 
-        // Maneja _id como string o como objeto BSON
         val id = if (obj.optJSONObject("_id") != null) {
             obj.getJSONObject("_id").getString("\$oid")
         } else {
             obj.optString("_id")
         }
 
-        // Maneja fecha como ISO string o BSON
         val fecha = when {
             obj.optJSONObject("fecha") != null ->
                 java.util.Date(obj.getJSONObject("fecha").getLong("\$date")).toString()
@@ -224,8 +351,9 @@ class ActivityCitas : AppCompatActivity() {
             motivo = obj.optString("motivo", ""),
             total = obj.optDouble("total", 0.0),
             paciente_id = obj.optString("paciente_id", ""),
-            paciente_nombre = obj.optString("paciente_nombre", "Paciente"),
-            usuario_id = obj.optString("usuario_id", "")
+            paciente_nombre = obj.optString("paciente_nombre", ""),
+            usuario_id = obj.optString("usuario_id", ""),
+            usuario_nombre = null
         )
     }
 
@@ -243,7 +371,7 @@ class ActivityCitas : AppCompatActivity() {
             // Por si ocurre un error de conexión o la API no responde
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    cita.usuario_id = "Desconocido"
+                    cita.usuario_nombre = "Desconocido"
                     verificarFinal()
                 }
 
@@ -255,14 +383,12 @@ class ActivityCitas : AppCompatActivity() {
                             val data = json.getJSONObject("data")
                             val nombre = data.optString("nombres", "")
                             val apellido = data.optString("apellidos", "")
-                            cita.usuario_id = "$nombre $apellido".trim()
-
-                            cita.usuario_id = "$nombre $apellido"
+                            cita.usuario_nombre = "$nombre $apellido".trim()
                         } catch (e: Exception) {
-                            cita.usuario_id = "Error al parsear"
+                            cita.usuario_nombre = "Error al parsear"
                         }
                     } else {
-                        cita.usuario_id = "No encontrado"
+                        cita.usuario_nombre = "No encontrado"
                     }
                     verificarFinal()
                 }

@@ -26,18 +26,19 @@
                 app:titleCentered="true" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ScrollView
+        <!-- EL SCROLL PRINCIPAL -->
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="16dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginTop="80dp">
 
-                <!-- CARD -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,13 +60,47 @@
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:gravity="center"
-                            android:layout_marginBottom="12dp"/>
+                            android:layout_marginBottom="12dp" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvCitasHoy"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false" />
+                            android:scrollbars="horizontal">
+
+                            <!-- ÚNICO HIJO -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <!-- HEADERS -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:padding="8dp"
+                                    android:background="#E0E0E0">
+
+                                    <TextView android:text="Fecha" style="@style/TableHeaderAsistente" android:layout_width="100dp"/>
+                                    <TextView android:text="Hora" style="@style/TableHeaderAsistente" android:layout_width="80dp"/>
+                                    <TextView android:text="Estado" style="@style/TableHeaderAsistente" android:layout_width="100dp"/>
+                                    <TextView android:text="Motivo" style="@style/TableHeaderAsistente" android:layout_width="150dp"/>
+                                    <TextView android:text="Total" style="@style/TableHeaderAsistente" android:layout_width="80dp"/>
+                                    <TextView android:text="Cédula" style="@style/TableHeaderAsistente" android:layout_width="120dp"/>
+                                    <TextView android:text="Paciente" style="@style/TableHeaderAsistente" android:layout_width="150dp"/>
+                                    <TextView android:text="Odontólogo" style="@style/TableHeaderAsistente" android:layout_width="120dp"/>
+                                </LinearLayout>
+
+                                <!-- RECYCLER VIEW -->
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvCitasHoy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="300dp"
+                                    android:scrollbars="horizontal"
+                                    android:overScrollMode="always" />
+
+                            </LinearLayout>
+                        </HorizontalScrollView>
 
                     </LinearLayout>
 
@@ -73,7 +108,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

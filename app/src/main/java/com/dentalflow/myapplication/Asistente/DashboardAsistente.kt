@@ -13,6 +13,7 @@ import com.dentalflow.myapplication.R
 import com.dentalflow.myapplication.ActivityConfiguracion
 import com.dentalflow.myapplication.data.local.SessionManager
 import com.dentalflow.myapplication.data.remote.CitaHoyAdapter
+import com.dentalflow.myapplication.data.remote.CitaHoyAdapterAsistente
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.*
@@ -40,10 +41,7 @@ class DashboardAsistente : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.navigation_view)
-
         val rv = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rvCitasHoy)
-        rv.layoutManager = LinearLayoutManager(this)
-
         val display = intent.getStringExtra("DISPLAY_NAME")
             ?: SessionManager(this).getDisplayName().orEmpty()
         toolbar.title = if (display.isNotBlank()) "Bienvenido, $display" else "Bienvenido"
@@ -97,19 +95,20 @@ class DashboardAsistente : AppCompatActivity() {
             true
         }
 
+        rv.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         cargarCitasHoy(rv)
     }
 
-
-    // ================================
     // CARGAR Citas HOY
-    // ================================
-
     private fun cargarCitasHoy(rv: androidx.recyclerview.widget.RecyclerView) {
         val hoy = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         val request = Request.Builder()
-            .url("$BASE_URL/api/citas/hoy\n")
+            .url("$BASE_URL/api/citas/hoy")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -128,7 +127,7 @@ class DashboardAsistente : AppCompatActivity() {
                 } catch (_: Exception) {}
 
                 runOnUiThread {
-                    rv.adapter = CitaHoyAdapter(lista)
+                    rv.adapter = CitaHoyAdapterAsistente(lista)
                 }
             }
         })

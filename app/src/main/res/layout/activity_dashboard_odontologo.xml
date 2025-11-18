@@ -77,12 +77,54 @@
                                     android:textAllCaps="false" />
                         </LinearLayout>
 
-                        <!-- Cabecera tabla -->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvCitasHoy"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"/>
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <HorizontalScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:scrollbars="horizontal">
+
+                                <!-- ÚNICO HIJO -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <!-- HEADERS -->
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:padding="8dp"
+                                        android:background="#E0E0E0">
+
+                                        <TextView android:text="Fecha" style="@style/TableHeaderAsistente" android:layout_width="100dp"/>
+                                        <TextView android:text="Hora" style="@style/TableHeaderAsistente" android:layout_width="80dp"/>
+                                        <TextView android:text="Estado" style="@style/TableHeaderAsistente" android:layout_width="100dp"/>
+                                        <TextView android:text="Motivo" style="@style/TableHeaderAsistente" android:layout_width="150dp"/>
+                                        <TextView android:text="Total" style="@style/TableHeaderAsistente" android:layout_width="80dp"/>
+                                        <TextView android:text="Cédula" style="@style/TableHeaderAsistente" android:layout_width="120dp"/>
+                                        <TextView android:text="Paciente" style="@style/TableHeaderAsistente" android:layout_width="150dp"/>
+                                        <TextView android:text="Odontólogo" style="@style/TableHeaderAsistente" android:layout_width="120dp"/>
+                                        <TextView android:text="Acciones" style="@style/TableHeaderAsistente" android:layout_width="190dp"/>
+                                    </LinearLayout>
+
+                                    <!-- RECYCLER VIEW -->
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rvCitasHoy"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="300dp"
+                                        android:scrollbars="horizontal"
+                                        android:overScrollMode="always" />
+
+                                </LinearLayout>
+                            </HorizontalScrollView>
+
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
